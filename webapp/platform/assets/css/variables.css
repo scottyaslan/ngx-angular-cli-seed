@@ -1,0 +1,96 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+:root {
+    --primary: #006ee3;
+    --on-primary: #fff;
+    --secondary: #0058bd;
+    --on-secondary: #fff;
+    --background: #f8f8f8;
+    --on-background: #666;
+    --blue-40: #eefaff;
+    --blue-50: #e6f7ff;
+    --blue-100: #a3dfff;
+    --blue-200: #7accff;
+    --blue-300: #51b5fc;
+    --blue-400: #008cff;
+    --blue-500: #006ee3;
+    --blue-600: #0058bd;
+    --blue-700: #004496;
+    --blue-800: #002f70;
+    --blue-900: #001c4a;
+    --gray-40: #fafbfc;
+    --gray-50: #f4f5f6;
+    --gray-100: #f1f2f3;
+    --gray-200: #eaebec;
+    --gray-300: #d6d8db;
+    --gray-400: #adb2b6;
+    --gray-500: #989ea4;
+    --gray-600: #838b92;
+    --gray-700: #5a656d;
+    --gray-800: #333e47;
+    --gray-900: #1b2329;
+    --black: #000;
+    --black-10: rgba(0, 0, 0, 0.1);
+    --black-25: rgba(0, 0, 0, 0.25);
+    --white: #fff;
+    --green-50: #f2ffeb;
+    --green-100: #cbf1b5;
+    --green-200: #aee390;
+    --green-300: #82c25d;
+    --green-400: #5aa232;
+    --green-500: #3a870e;
+    --green-600: #2c6c08;
+    --green-700: #1a4700;
+    --green-800: #163c00;
+    --green-900: #133300;
+    --orange-50: #fff0d9;
+    --orange-100: #ffd599;
+    --orange-200: #ffa319;
+    --orange-300: #ff8400;
+    --orange-400: #f96600;
+    --orange-500: #b34d00;
+    --orange-600: #8c3800;
+    --orange-700: #662500;
+    --orange-800: #401500;
+    --orange-900: #260d00;
+    --red-50: #fff2f2;
+    --red-100: #fdcfcf;
+    --red-200: #faadac;
+    --red-300: #f36d6b;
+    --red-400: #e83934;
+    --red-500: #d9150c;
+    --red-600: #bf1408;
+    --red-700: #990d00;
+    --red-800: #670901;
+    --red-900: #3f0600;
+    --link-default: #006ee3;
+    --link-hover: #00609b;
+    --default-box-border-radius: 3px;
+    --pad-xs: 4px;
+    --pad-sm: 8px;
+    --pad-md: 16px;
+    --pad-lg: 24px;
+    --pad-xl: 36px;
+    --pad-xxl: 56px;
+    --margin-xs: 4px;
+    --margin-sm: 8px;
+    --margin-md: 16px;
+    --margin-lg: 24px;
+    --margin-xl: 36px;
+    --margin-xxl: 56px;
+}
