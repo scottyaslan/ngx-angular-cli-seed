@@ -19,9 +19,22 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-// Config for serving the app with Angular Dev Server (ng serve)
+/*
+ * For easier debugging in development mode, you can import the following file
+ * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
+ *
+ * This import should be commented out in production mode because it will have a negative impact
+ * on performance if an error is thrown.
+ */
+import 'zone.js/plugins/zone-error'; // Included with Angular CLI.
 
-import { environment } from './environment.dev';
+import { environment } from './environment.prod';
+
+environment.production = false;
+environment.development = true;
+
+environment.mockInterceptor.enabled = [];
+environment.mockInterceptor.logging = true;
 
 export { environment };
 

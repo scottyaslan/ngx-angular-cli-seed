@@ -15,14 +15,14 @@
     "//-14": "limitations under the License.",
     "extends": "./tsconfig.json",
     "compilerOptions": {
-        "outDir": "./out-tsc/webapp",
-        "types": []
+        "outDir": "./out-tsc/webapp"
     },
-    "include": [
-        "webapp/**/*.ts"
+    "files": [
+        "webapp/main.ts",
+        "webapp/polyfills.ts"
     ],
+    "include": [],
     "exclude": [
-        "webapp/test.ts",
-        "webapp/**/*.spec.ts"
+        "**/*.spec.ts"
     ]
 }

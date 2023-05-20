@@ -15,26 +15,20 @@
  * limitations under the License.
  */
 
-module.exports = {
-    "extends": "stylelint-config-standard",
-    "rules": {
-        "indentation": null,
-        "at-rule-no-unknown": [true, {
-            "ignoreAtRules": ["for", "each", "extend", "/include/", "/mixin/", "/function/", "/return/"]
-        }],
-        "declaration-empty-line-before": null,
-        "selector-type-no-unknown": [true, {
-            "ignoreTypes": ["/mat-/", "/ngx-/"]
-        }],
-        "font-family-no-missing-generic-family-keyword": null,
-        "no-empty-source": null,
+// ***********************************************************
+// This example support/index.js is processed and
+// loaded automatically before your test files.
+//
+// This is a great place to put global configuration and
+// behavior that modifies Cypress.
+//
+// You can change the location of this file or turn off
+// automatically serving support files with the
+// 'supportFile' configuration option.
+//
+// You can read more here:
+// https://on.cypress.io/configuration
+// ***********************************************************
 
-        "selector-pseudo-element-no-unknown": [true, {
-            "ignorePseudoElements": ["ng-deep"]
-        }]
-    },
-    "ignoreFiles": [
-        "webapp/platform/assets/**/*.scss",
-        "webapp/platform/ngx-design-system-seed/assets/styles/material/**"
-    ]
-};
+// Import commands.js using ES2015 syntax:
+import './commands';

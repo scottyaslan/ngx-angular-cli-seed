@@ -17,13 +17,23 @@
 
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 
-describe('Component', () => {
+describe('AppComponent', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [
-                RouterTestingModule
+                RouterTestingModule,
+                NoopAnimationsModule,
+                MatIconModule,
+                MatSidenavModule,
+                MatButtonModule,
+                MatToolbarModule,
             ],
             declarations: [
                 AppComponent
@@ -31,22 +41,9 @@ describe('Component', () => {
         }).compileComponents();
     }));
 
-    it('should create the webapp', () => {
+    it('should create', () => {
         const fixture = TestBed.createComponent(AppComponent);
         const app = fixture.debugElement.componentInstance;
         expect(app).toBeTruthy();
-    });
-
-    it(`should have as title 'Hello!'`, () => {
-        const fixture = TestBed.createComponent(AppComponent);
-        const app = fixture.debugElement.componentInstance;
-        expect(app.title).toEqual('Hello!');
-    });
-
-    it('should render title', () => {
-        const fixture = TestBed.createComponent(AppComponent);
-        fixture.detectChanges();
-        const compiled = fixture.debugElement.nativeElement;
-        expect(compiled.querySelector('.test > div').textContent).toContain('Hello!');
     });
 });

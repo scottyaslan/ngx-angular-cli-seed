@@ -19,9 +19,28 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-// Config for serving the app with Angular Dev Server (ng serve)
+/**
+ * Environment with mock interceptor enabled on all routes
+ * for manual testing and development
+ */
 
-import { environment } from './environment.dev';
+import { environment } from './environment.prod';
+
+environment.production = false;
+environment.development = true;
+
+environment.mockInterceptor.logging = true;
+environment.mockInterceptor.enabled = true; // all mocks are enabled
+environment.mockInterceptor.delay = 500; // simulating 0.5s api response time
+environment.statefulMockHandlers = true; // mock handlers are allowed to mutate mock data
+
+environment.kitchenSinkPageVisible = true;
+
+// uncomment temporarily if you need it for testing
+// environment.polling.interval = 5 * 1000;
+// environment.polling.notificationsPollingInterval = 5 * 1000;
+
+environment.apiPath = `${environment.apiUrl}`;
 
 export { environment };
 

@@ -17,11 +17,10 @@
                 "build": {
                     "builder": "@angular-devkit/build-angular:browser",
                     "options": {
-                        "outputPath": "dist/app",
-                        "index": "webapp/index.html",
-                        "main": "webapp/main.ts",
+                        "allowedCommonJsDependencies": [
+                        ],
                         "polyfills": "webapp/polyfills.ts",
-                        "tsConfig": "tsconfig.webapp.json",
+                        "preserveSymlinks": true,
                         "aot": false,
                         "assets": [
                             "webapp/favicon.ico",
@@ -30,10 +29,22 @@
                         ],
                         "styles": [
                             "node_modules/reset-css/sass/_reset.scss",
+                            "node_modules/font-awesome/css/font-awesome.min.css",
                             "webapp/platform/assets/material/theme.scss",
                             "webapp/assets/styles.scss"
                         ],
-                        "scripts": []
+                        "scripts": [],
+                        "baseHref": "",
+                        "outputPath": "dist/ngx-angular-cli-seed",
+                        "index": "webapp/index.html",
+                        "main": "webapp/main.ts",
+                        "tsConfig": "tsconfig.webapp.json",
+                        "vendorChunk": true,
+                        "extractLicenses": false,
+                        "buildOptimizer": false,
+                        "sourceMap": true,
+                        "optimization": false,
+                        "namedChunks": true
                     },
                     "configurations": {
                         "production": {
@@ -46,7 +57,6 @@
                             "optimization": true,
                             "outputHashing": "all",
                             "sourceMap": false,
-                            "extractCss": true,
                             "namedChunks": false,
                             "aot": true,
                             "extractLicenses": true,
@@ -55,11 +65,43 @@
                             "budgets": [
                                 {
                                     "type": "initial",
-                                    "maximumWarning": "2mb",
-                                    "maximumError": "5mb"
+                                    "maximumError": "6mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "6kb"
                                 }
-                            ]
-                        }
+                            ],
+                            "outputPath": "dist/ngx-angular-cli-seed",
+                            "index": "webapp/index.html",
+                            "main": "webapp/main.ts",
+                            "tsConfig": "tsconfig.webapp.json"
+                        },
+                        "mocked": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "webapp/environments/environment.ts",
+                                    "with": "webapp/environments/environment.mocked.ts"
+                                }
+                            ],
+                            "outputPath": "dist/ngx-angular-cli-seed",
+                            "index": "webapp/index.html",
+                            "main": "webapp/main.ts",
+                            "tsConfig": "tsconfig.webapp.json"
+                        },
+                        "e2e-mocked": {
+                            "fileReplacements": [
+                                {
+                                    "replace": "webapp/environments/environment.ts",
+                                    "with": "webapp/environments/environment.e2e.mocked.ts"
+                                }
+                            ],
+                            "outputPath": "dist/ngx-angular-cli-seed",
+                            "index": "webapp/index.html",
+                            "main": "webapp/main.ts",
+                            "tsConfig": "tsconfig.webapp.json"
+                        },
+                        "defaultConfiguration": ""
                     }
                 },
                 "serve": {
@@ -71,6 +113,14 @@
                     "configurations": {
                         "production": {
                             "browserTarget": "app:build:production"
+                        },
+                        "mocked": {
+                            "browserTarget": "app:build:mocked",
+                            "port": 1437
+                        },
+                        "e2e-mocked": {
+                            "browserTarget": "app:build:e2e-mocked",
+                            "port": 1537
                         }
                     }
                 },
@@ -84,6 +134,9 @@
                     "builder": "@angular-devkit/build-angular:karma",
                     "options": {
                         "main": "webapp/test.ts",
+                        "codeCoverageExclude": [
+                            "webapp/testing/mock-interceptor/**"
+                        ],
                         "polyfills": "webapp/polyfills.ts",
                         "tsConfig": "tsconfig.spec.json",
                         "karmaConfig": "karma.conf.js",
@@ -92,7 +145,13 @@
                             "webapp/assets"
                         ],
                         "styles": [],
-                        "scripts": []
+                        "scripts": [],
+                        "fileReplacements": [
+                            {
+                                "replace": "webapp/environments/environment.ts",
+                                "with": "webapp/environments/environment.test.ts"
+                            }
+                        ]
                     }
                 },
                 "lint": {
@@ -110,5 +169,8 @@
             }
         }
     },
-    "defaultProject": "app"
+    "defaultProject": "app",
+    "cli": {
+        "analytics": false
+    }
 }

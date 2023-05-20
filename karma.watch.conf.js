@@ -15,26 +15,11 @@
  * limitations under the License.
  */
 
-module.exports = {
-    "extends": "stylelint-config-standard",
-    "rules": {
-        "indentation": null,
-        "at-rule-no-unknown": [true, {
-            "ignoreAtRules": ["for", "each", "extend", "/include/", "/mixin/", "/function/", "/return/"]
-        }],
-        "declaration-empty-line-before": null,
-        "selector-type-no-unknown": [true, {
-            "ignoreTypes": ["/mat-/", "/ngx-/"]
-        }],
-        "font-family-no-missing-generic-family-keyword": null,
-        "no-empty-source": null,
+// Karma configuration file, see link for more information
+// https://karma-runner.github.io/1.0/config/configuration-file.html
 
-        "selector-pseudo-element-no-unknown": [true, {
-            "ignorePseudoElements": ["ng-deep"]
-        }]
-    },
-    "ignoreFiles": [
-        "webapp/platform/assets/**/*.scss",
-        "webapp/platform/ngx-design-system-seed/assets/styles/material/**"
-    ]
+const commonConfig = require('./karma.conf');
+
+module.exports = function (config) {
+    commonConfig(config, true);
 };

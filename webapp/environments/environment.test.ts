@@ -15,26 +15,19 @@
  * limitations under the License.
  */
 
-module.exports = {
-    "extends": "stylelint-config-standard",
-    "rules": {
-        "indentation": null,
-        "at-rule-no-unknown": [true, {
-            "ignoreAtRules": ["for", "each", "extend", "/include/", "/mixin/", "/function/", "/return/"]
-        }],
-        "declaration-empty-line-before": null,
-        "selector-type-no-unknown": [true, {
-            "ignoreTypes": ["/mat-/", "/ngx-/"]
-        }],
-        "font-family-no-missing-generic-family-keyword": null,
-        "no-empty-source": null,
+// This file can be replaced during build by using the `fileReplacements` array.
+// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
+// The list of file replacements can be found in `angular.json`.
 
-        "selector-pseudo-element-no-unknown": [true, {
-            "ignorePseudoElements": ["ng-deep"]
-        }]
-    },
-    "ignoreFiles": [
-        "webapp/platform/assets/**/*.scss",
-        "webapp/platform/ngx-design-system-seed/assets/styles/material/**"
-    ]
-};
+import { environment } from './environment.prod';
+
+environment.production = false;
+environment.polling.interval = 1000; //1 sec
+environment.mockInterceptor.enabled = true; //all mocks are enabled
+environment.mockInterceptor.enableRequestHistory = true; // to be able to check http requests
+// environment.mockInterceptor.logging = true;
+
+export { environment };
+
+// use this variable to drive handshaking while building application bundles, see environment.prod.ts for details
+export const IS_PRODUCTION_BUILD = false;

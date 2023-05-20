@@ -22,16 +22,11 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { NgModule } from '@angular/core';
-import { PlatformModule } from 'webapp/platform/platform.module';
-import { registerLocaleData } from '@angular/common';
-import localeHu from '@angular/common/locales/hu';
-import localeHuExtra from '@angular/common/locales/extra/hu';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PlatformModule } from 'webapp/platform/platform.module';
 import { AppRoutingModule } from './app.routes.module';
 import { AppComponent } from './app.component';
 import { KitchenSinkModule } from './components/kitchen-sink/kitchen-sink.module';
-
-registerLocaleData(localeHu, 'hu-HU', localeHuExtra);
 
 @NgModule({
     declarations: [
@@ -45,9 +40,9 @@ registerLocaleData(localeHu, 'hu-HU', localeHuExtra);
         MatToolbarModule,
         BrowserModule,
         AppRoutingModule,
-        PlatformModule,
         KitchenSinkModule,
-        BrowserAnimationsModule
+        BrowserAnimationsModule,
+        PlatformModule
     ],
     providers: [],
     bootstrap: [AppComponent]
