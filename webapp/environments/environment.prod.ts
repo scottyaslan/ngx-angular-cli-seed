@@ -15,45 +15,43 @@
  * limitations under the License.
  */
 
-export interface MockInterceptorConfiguration {
-    apiUrl: string | string[];
+export interface StubbedDataInterceptorConfiguration {
+    apiUrl: string | string[]; // e.g.:`http://localhost:4200/api/v1`;
+    // enable stubbed single endpoints using an array: enabled = [...]
+    // enabled === true enables all stubbed endpoints
+    // enabled === false disables all stubbed endpoints
+    // (note that changing this while running by window.environment has no effect)
     enabled: string[] | boolean;
     logging: boolean;
-    delay: number;
+    delay: number; // simulates slow network
+    // if true, stubbed interceptor will be available as window.stubbedDataInterceptor used by Cypress e2e tests
     exposeToWindow: boolean;
+    // Request History tracks all http requests processed by Stubbed Data Interceptor
+    // should be enabled while e2e or unit testing
     enableRequestHistory: boolean;
 }
-
 // use this variable to drive handshaking while building application bundles
 // to exclude code from production build, use: if(!IS_PRODUCTION_BUILD) { codeForDevOnly }
 // (members of 'environment' are not considered as constant,
 // they won't exclude code from the production build)
+
 export const IS_PRODUCTION_BUILD = true;
 
 const root = location ? location.origin : '';
 const rootApiPath = '';
 
-const mockInterceptor: MockInterceptorConfiguration = {
+const stubbedDataInterceptor: StubbedDataInterceptorConfiguration = {
     apiUrl: [
         `${root}${rootApiPath}`
     ],
-    // enable mock resources one-by-one by using an array: enabled = [...]
-    // enabled === true enables all mock resources
-    // enabled === false disables all mock resources
-    // (note that changing this while running by window.environment has no effect)
     enabled: false,
     logging: false,
-    delay: 1000, // simulates slow network
-    // if true, mock interceptor will be available as window.mockInterceptor
-    // used by Cypress e2e tests on mocked environment
+    delay: 1000,
     exposeToWindow: false,
-    // Request History tracks all http requests processed by Mock Interceptor
-    // should be enabled while e2e or unit testing
     enableRequestHistory: false
 };
 
 export const environment = {
-    workspace: 'global',
     production: true,
     development: false,
     apiUrl: `${root}${rootApiPath}`,
@@ -65,9 +63,9 @@ export const environment = {
 
     kitchenSinkPageVisible: false, // a showroom for implemented components that are not used in the current release
 
-    mockInterceptor,
-    mockDelayToCheckProgress: mockInterceptor.delay, // special delay for requests that should last longer to be able to check progress
-    mockDelayForSTOMPTopics: mockInterceptor.delay, // special delay for STOMP over websocket
+    stubbedDataInterceptor,
+    delayToCheckProgress: stubbedDataInterceptor.delay, // special delay for requests that should last longer to be able to check progress
+    delayForSTOMPTopics: stubbedDataInterceptor.delay, // special delay for STOMP over websocket
 
     // we can implement mock handlers 2 ways:
     // - stateless (for testing)
@@ -77,7 +75,6 @@ export const environment = {
 
     polling: {
         interval: 30 * 1000, // ms, the default polling interval
-        notificationsPollingInterval: 15 * 1000 // ms, custom polling interval for NotificationsService
     },
 
     routing: {

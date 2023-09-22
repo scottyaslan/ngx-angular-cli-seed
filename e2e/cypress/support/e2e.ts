@@ -32,3 +32,10 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands';
+
+beforeEach(() => {
+    // making cypress environment available for the running app
+    // so the we can setup e.g. mock interceptor to behave differently based on this configuration
+    // eslint-disable-next-line no-param-reassign
+    cy.on('window:before:load', (win) => { (win as any)['CYPRESS_ENV'] = Cypress.env(); });
+});

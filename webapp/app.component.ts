@@ -15,15 +15,27 @@
  * limitations under the License.
  */
 
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
     selector: 'webapp',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
     sidenavOpen = false;
+    protected basePath = 'http://localhost:1337';
+
+    constructor(protected httpClient: HttpClient) {
+    }
+
+    ngOnInit() {
+        this.httpClient.get(`${this.basePath}/entity/1234`).subscribe((data) => {
+            // eslint-disable-next-line no-console
+            console.log(`Stubbed data: ${data}`);
+        });
+    }
 
     closeSidenav() {
         this.sidenavOpen = false;

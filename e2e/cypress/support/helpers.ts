@@ -31,22 +31,27 @@ export const randomId = () => (((1 + Math.random()) * 0x10000) | 0).toString(16)
 // })
 
 export const EXCLUDE_FROM_DEEP_EQUALS = 'EXCLUDE_FROM_DEEP_EQUALS';
-export function deepEqualsWithExclusions(obj1: any, obj2: any): boolean {
-    return compare(obj1, obj2) && compare(obj2, obj1);
+export function deepEqualsWithExclusions(obj1: any, obj2: any, key: any = undefined): boolean {
+    return compare(obj1, obj2, key) && compare(obj2, obj1, key);
 }
 
-function compare(source: any, dest: any): boolean {
-    if (dest === undefined) {
-        return false;
-    }
-    if (Array.isArray(source)) {
-        return source.every((_, i) => deepEqualsWithExclusions(source[i], dest[i]));
-    }
-    if ((typeof source === 'object') && (source !== null)) {
-        return Object.keys(source).every((key) => deepEqualsWithExclusions(source[key], dest[key]));
-    }
+function compare(source: any, dest: any, keyToLog: any = undefined): boolean {
     if (source === EXCLUDE_FROM_DEEP_EQUALS || dest === EXCLUDE_FROM_DEEP_EQUALS) {
         return true;
     }
-    return source === dest;
+    if (dest === undefined) {
+        cy.log('Missing value', keyToLog, source);
+        return false;
+    }
+    if (Array.isArray(source) && Array.isArray(dest)) {
+        return source.every((_, i) => deepEqualsWithExclusions(source[i], dest[i], i));
+    }
+    if ((typeof source === 'object') && (source !== null) && (typeof dest === 'object') && (dest !== null)) {
+        return Object.keys(source).every((key) => deepEqualsWithExclusions(source[key], dest[key], key));
+    }
+    if (dest !== source) {
+        cy.log('Property does not equal', source, dest);
+        return false;
+    }
+    return true;
 }

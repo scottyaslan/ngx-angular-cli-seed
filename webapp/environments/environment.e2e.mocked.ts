@@ -27,12 +27,12 @@
 import { environment } from './environment.prod';
 
 environment.production = false;
-environment.mockInterceptor.logging = true;
-environment.mockInterceptor.enabled = true; // all mocks are enabled
-environment.mockInterceptor.delay = 10; // quick response time
-environment.mockDelayToCheckProgress = 500; // longer delay for requests that should last longer to be able to check progress
-environment.mockInterceptor.exposeToWindow = true; // to let Cypress access it
-environment.mockInterceptor.enableRequestHistory = true; // to be able to check http requests
+environment.stubbedDataInterceptor.logging = true;
+environment.stubbedDataInterceptor.enabled = true; // all mocks are enabled
+environment.stubbedDataInterceptor.delay = 10; // quick response time
+environment.delayToCheckProgress = 500; // longer delay for requests that should last longer to be able to check progress
+environment.stubbedDataInterceptor.exposeToWindow = true; // to let Cypress access it
+environment.stubbedDataInterceptor.enableRequestHistory = true; // to be able to check http requests
 environment.statefulMockHandlers = true; // mock handlers are allowed to mutate mock data
 
 environment.apiPath = `${environment.apiUrl}`;

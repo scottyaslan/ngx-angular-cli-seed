@@ -33,8 +33,8 @@ import { environment } from './environment.prod';
 environment.production = false;
 environment.development = true;
 
-environment.mockInterceptor.enabled = [];
-environment.mockInterceptor.logging = true;
+environment.stubbedDataInterceptor.enabled = true;
+environment.stubbedDataInterceptor.logging = true;
 
 export { environment };
 

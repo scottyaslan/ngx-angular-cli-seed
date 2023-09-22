@@ -15,19 +15,12 @@
  * limitations under the License.
  */
 
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
+export interface Entity {
+    id: string
+}
 
-import { environment } from './environment.prod';
-
-environment.production = false;
-environment.polling.interval = 1000; //1 sec
-environment.stubbedDataInterceptor.enabled = true; //all mocks are enabled
-environment.stubbedDataInterceptor.enableRequestHistory = true; // to be able to check http requests
-// environment.stubbedDataInterceptor.logging = true;
-
-export { environment };
-
-// use this variable to drive handshaking while building application bundles, see environment.prod.ts for details
-export const IS_PRODUCTION_BUILD = false;
+export const entities: Entity[] = [
+    {
+        id: '1234'
+    }
+];

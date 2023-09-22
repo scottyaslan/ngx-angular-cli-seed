@@ -119,7 +119,7 @@ module.exports = {
         'no-useless-constructor': OFF,
         'no-empty-function': OFF,
         'no-underscore-dangle': ['error', { 'allowAfterThis': true }],
-
+        'max-classes-per-file' : OFF,
         'no-use-before-define': OFF,
         'no-shadow': OFF,
     }

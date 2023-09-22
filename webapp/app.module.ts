@@ -15,24 +15,51 @@
  * limitations under the License.
  */
 
+import { environment as ENV, IS_PRODUCTION_BUILD } from 'webapp/environments/environment';
+import { NgModule, Provider } from '@angular/core';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PlatformModule } from 'webapp/platform/platform.module';
+import { KitchenSinkModule } from 'webapp/components/kitchen-sink/kitchen-sink.module';
+import {
+    STUBBED_DATA_INTERCEPTOR_CONFIGURATION,
+    StubDataInterceptorService,
+    REGISTER_STUBBED_ROUTES
+} from 'webapp/services/stub-data-interceptor.service';
+import { registerEndpoints } from 'webapp/testing/stubbed-data-interceptor/endpoints';
 import { AppRoutingModule } from './app.routes.module';
 import { AppComponent } from './app.component';
-import { KitchenSinkModule } from './components/kitchen-sink/kitchen-sink.module';
+
+const providers: Provider[] = [
+    {
+        provide: STUBBED_DATA_INTERCEPTOR_CONFIGURATION,
+        useValue: ENV.stubbedDataInterceptor
+    }
+];
+
+if (!IS_PRODUCTION_BUILD && ENV.stubbedDataInterceptor.enabled) {
+    providers.push({
+        provide: REGISTER_STUBBED_ROUTES,
+        useValue: registerEndpoints
+    }, {
+        provide: HTTP_INTERCEPTORS,
+        useClass: StubDataInterceptorService,
+        multi: true
+    });
+}
 
 @NgModule({
     declarations: [
         AppComponent
     ],
     imports: [
+        HttpClientModule,
         FlexLayoutModule,
         MatIconModule,
         MatSidenavModule,
@@ -44,7 +71,7 @@ import { KitchenSinkModule } from './components/kitchen-sink/kitchen-sink.module
         BrowserAnimationsModule,
         PlatformModule
     ],
-    providers: [],
+    providers,
     bootstrap: [AppComponent]
 })
 export class AppModule { }

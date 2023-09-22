@@ -15,36 +15,11 @@
  * limitations under the License.
  */
 
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add("dismiss", { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
-
-// Must be declared global to be detected by typescript (allows import/export)
 // eslint-disable @typescript/interface-name
 
-export interface HttpRequestHistoryItem {
+import { STUBBED_ERROR_RESPONSES, STUBBED_EXTRA_RESPONSES } from '../../../webapp/services/stub-data-interceptor.service';
+
+export interface RequestHistory {
     method: string;
     urlWithParams: string;
     requestBody: object;
@@ -56,48 +31,19 @@ declare global {
     namespace Cypress {
         interface Chainable<Subject> { // eslint-disable-line no-unused-vars, @typescript-eslint/no-unused-vars
             /**
-              * Custom command to select DOM element by data-qa attribute.
-              * @example cy.getByDataQa('deployment-detail')
-              * @example cy.getByDataQa('deployment-detail deployment-name') // select children
-              */
-            getByDataQa(qa: string, options?: any): Chainable<Element>;
-
-            /**
-              * Custom command to find a DOM elements which contains a given text in a given sub-element.
-              * @example cy.getByDataQaContaining('flows-table-row', 'flow-name'. 'My Flow') // selects the row which contains 'My Flow'
-              */
-            getByDataQaContaining(collectionQa: string, searchQa: string, contains: string, options?: any): Chainable<Element>;
-
-            /**
-             * Custom commands to select an option in a mat-select.
-             * @example cy.getByDataQa('select-environment').selectOption('-standalone-');
+             * Custom command to select DOM element by data-it attribute
              */
-            selectOption(optionText: string): void;
-            selectGroupedOption(groupText: string, optionText: string): void;
+            getByDataIt(identifier: string, options?: any): Chainable<Element>;
 
             /**
-             * Custom commands to clear and fill text fields
-             * Cypress has an issue with its clear() commend, see: https://github.com/cypress-io/cypress/issues/2650
-             *
-             * @example cy.getByDataQa('select-environment').clearValue();
-             * @example cy.getByDataQa('select-environment').clearAndFill('hello');
+             * find a DOM elements which contains a given text in a sub-element.
              */
-            clearValue(): Chainable<Element>;
-            clearAndFill(value: string): Chainable<Element>;
+            getByDataItContaining(collection: string, search: string, contains: string, options?: any): Chainable<Element>;
 
             /**
-             * Custom command to select a file in a specified file input.
-             * @example cy.selectJsonFile('input-import-flow-file', 'valid-nifi-flow.json');
+             * schedule an error after a successful request
              */
-            selectJsonFile(fileInputSearchQa: string, fileName: string): void;
-
-            /**
-             * The next call of the given path and method will return with the given error.
-             * Works on mocked environment only.
-             * Calls prepareErrorResponse() of MockInterceptorService
-             * @example cy.prepareMockErrorResponse('POST', 'catalog/flows', 500);
-             */
-            prepareMockErrorResponse(
+            scheduleStubbedErrorResponse(
                 method: string,
                 path: string,
                 status: number,
@@ -106,35 +52,48 @@ declare global {
             ): void;
 
             /**
-             * The next call of the given path and method will return with the given error.
-             * Works on mocked environment only.
-             * Calls prepareErrorResponse() of MockInterceptorService
-             * @example cy.prepareMockErrorResponse('POST', 'catalog/flows', 500);
+             * schedule an error after a successful request
              */
-            prepareMockExtraResponse(
+            scheduleStubbedExtraResponse(
                 method: string,
                 path: string,
                 body?: any,
                 status?: number
             ): void;
 
-            // accessing request history in mock interceptor
-            getLastMockedHttpRequest(): Chainable<HttpRequestHistoryItem>;
-            getAllMockedHttpRequests(): Chainable<HttpRequestHistoryItem[]>;
-            getMockedHttpRequest(method: string, url: string | RegExp): Chainable<HttpRequestHistoryItem>;
-            getMockedHttpRequests(method: string, url: string | RegExp): Chainable<HttpRequestHistoryItem[]>;
+            /**
+             * set stubbed data response for a given endpoint before any requests.
+             */
+            setStubbedErrorResponse(
+                method: string,
+                path: string,
+                status: number,
+                statusText?: string | null,
+                error?: any
+            ): void;
 
             /**
-             * sets te items per page in the paginator
+             * set stubbed error response for a given endpoint before any requests.
              */
-            setItemsPerPage(itemsPerPage: number): Chainable<Element>;
+            setStubbedExtraResponse(
+                method: string,
+                path: string,
+                body?: any,
+                status?: number
+            ): void;
+
+            // accessing request history in Stub Data Interceptor
+            getLastRequest(): Chainable<RequestHistory>;
+            getAllRequests(): Chainable<RequestHistory[]>;
+            getRequest(method: string, url: string | RegExp): Chainable<RequestHistory>;
+            getRequests(method: string, url: string | RegExp): Chainable<RequestHistory[]>;
         }
     }
 }
 
-// converts 'foo bar' to '[data-qa=foo] [data-qa=bar]'
-export const getQaSelector = (qas: string) => qas.split(' ')
-    .map((qa) => `[data-qa=${qa}]`)
+// converts 'foo bar' to '[data-it=foo] [data-it=bar]'
+export const getItSelector = (identifiers: string) => identifiers.split(' ')
+    .map((identifier) => `[data-it=${identifier}]`)
     .join(' ');
 
 // a full match regex, allowing leading and trailing whitespaces only
@@ -142,129 +101,97 @@ export const getQaSelector = (qas: string) => qas.split(' ')
 // e.g. cy.contains('1') finds '11' but cy.contains(fullMatch('1')) finds '1' (or '  1 ') only.
 const fullMatch = (s: string) => new RegExp(`^\\s*${s}\\s\\(*\\w*\\)*\\s*$`, 'g');
 
-Cypress.Commands.add('getByDataQa', (qa: string, options?: any) => cy
-    .get(getQaSelector(qa), options));
-Cypress.Commands.add('getByDataQaContaining', (collectionQa: string, searchQa: string, searchText: string, options?: any) => cy
-    .get(getQaSelector(`${collectionQa} ${searchQa}`))
-    // Cypress regexp search does not work on single element - seems to be a bug
-    // (on the other hand if there is only one element found, then the simple text search
-    // can be safe enough - so we can live this workaround I think)
-    // .contains(fullMatch(searchText), options)
+// @ts-ignore
+Cypress.Commands.add('getByDataIt', (identifier: string, options?: any) => cy
+    .get(getItSelector(identifier), options));
+// @ts-ignore
+Cypress.Commands.add('getByDataItContaining', (collection: string, search: string, searchText: string, options?: any) => cy
+    .get(getItSelector(`${collection} ${search}`))
     .then(($e) => {
         if ($e.length === 1) {
             return cy.wrap($e).contains(searchText, options);
         }
         return cy.wrap($e).contains(fullMatch(searchText), options);
     })
-    .parentsUntil('', getQaSelector(collectionQa)));
-Cypress.Commands.add('selectOption', { prevSubject: true }, (subject, optionText: string) => cy
-    .wrap(subject)
-    .click()
-    .get('.mat-select-panel')
-    .contains('mat-option', optionText)
-    .click());
-Cypress.Commands.add('selectGroupedOption', { prevSubject: true }, (subject, groupText: string, optionText: string) => cy
-    .wrap(subject)
-    .click()
-    .get('.mat-select-panel')
-    .contains('mat-optgroup', groupText)
-    .contains('mat-option', optionText)
-    .click());
-Cypress.Commands.add('clearValue', { prevSubject: true }, (subject) => cy
-    .wrap(subject)
-    .click()
-    // we have to invoke this way because Cypress has an issue with clear().
-    // details: https://github.com/cypress-io/cypress/issues/2650
-    .invoke('val', '')
-    .trigger('input'));
-Cypress.Commands.add('clearAndFill', { prevSubject: true }, (subject, value: string) => cy
-    .wrap(subject)
-    .clearValue()
-    .click()
-    .type(value)
-    .should('contain.value', value));
-Cypress.Commands.add('selectJsonFile', (fileInputSearchQa: string, fileName: string) => cy
-    .getByDataQa(fileInputSearchQa).then((subject: any) => {
-        const fileInput = subject[0] as HTMLInputElement;
-        cy.fixture(fileName).then((json) => {
-            const dataTransfer = new DataTransfer();
-            const testFile = new File([JSON.stringify(json)], fileName, { type: 'application/json' });
-            dataTransfer.items.add(testFile);
+    .parentsUntil('', getItSelector(collection)));
 
-            // eslint-disable-next-line no-param-reassign
-            fileInput.files = dataTransfer.files;
-            cy.wrap(fileInput).trigger('change', { force: true });
-        });
-    }));
-Cypress.Commands.add('setItemsPerPage', (itemsPerPage: number) => cy
-    .get(`mat-paginator mat-select`)
-    .click()
-    .get('.mat-select-panel')
-    .contains('mat-option', itemsPerPage)
-    .click());
+// STUBBED DATA INTERCEPTOR INTEGRATION
 
-// MOCK INTERCEPTOR INTEGRATION
-
-Cypress.Commands.add('prepareMockErrorResponse', (method: string, path: string, status: number, statusText: string | null = null, error: any = null) => cy
+Cypress.Commands.add('scheduleStubbedErrorResponse', (method: string, path: string, status: number, statusText: string | null = null, error: any = null) => cy
     .window()
     .then((win) => {
-        const { mockInterceptor } = win as any;
-        if (mockInterceptor) {
-            mockInterceptor.prepareErrorResponse(method, path, status, statusText, error);
+        const { stubbedDataInterceptor } = win as any;
+        if (stubbedDataInterceptor) {
+            stubbedDataInterceptor.scheduleStubbedErrorResponse(method, path, status, statusText, error);
         } else {
-            console.error('Mock Interceptor is not available.');// eslint-disable-line no-console
+            console.error('Stub Data Interceptor is not available.');// eslint-disable-line no-console
         }
     }));
-Cypress.Commands.add('prepareMockExtraResponse', (method: string, path: string, body: any = null, status: number = 200) => cy
+Cypress.Commands.add('scheduleStubbedExtraResponse', (method: string, path: string, body: any = null, status: number = 200) => cy
     .window()
     .then((win) => {
-        const { mockInterceptor } = win as any;
-        if (mockInterceptor) {
-            mockInterceptor.prepareExtraResponse(method, path, body, status);
+        const { stubbedDataInterceptor } = win as any;
+        if (stubbedDataInterceptor) {
+            stubbedDataInterceptor.scheduleStubbedExtraResponse(method, path, body, status);
         } else {
-            console.error('Mock Interceptor is not available.'); // eslint-disable-line no-console
+            console.error('Stub Data Interceptor is not available.'); // eslint-disable-line no-console
         }
     }));
-Cypress.Commands.add('getLastMockedHttpRequest', () => cy
+Cypress.Commands.add('setStubbedErrorResponse', (method: string, path: string, status: number, statusText: string | null = null, error: any = null) => cy
+    .on('window:before:load', (win: any) => {
+        const key = `${method}-${path}`;
+        // eslint-disable-next-line no-param-reassign
+        win[STUBBED_ERROR_RESPONSES] = win[STUBBED_ERROR_RESPONSES] || {};
+        // eslint-disable-next-line no-param-reassign
+        win[STUBBED_ERROR_RESPONSES][key] = { method, path, status, statusText, error };
+    }));
+Cypress.Commands.add('setStubbedExtraResponse', (method: string, path: string, body: any = null, status: number = 200) => cy
+    .on('window:before:load', (win: any) => {
+        const key = `${method}-${path}`;
+        // eslint-disable-next-line no-param-reassign
+        win[STUBBED_EXTRA_RESPONSES] = win[STUBBED_EXTRA_RESPONSES] || {};
+        // eslint-disable-next-line no-param-reassign
+        win[STUBBED_EXTRA_RESPONSES][key] = { method, path, body, status };
+    }));
+Cypress.Commands.add('getLastRequest', () => cy
     .window()
     .then((win) => {
-        const { mockInterceptor } = win as any;
-        if (mockInterceptor) {
-            return mockInterceptor.getHttpRequestHistory().getLatest() || null; // must return null instead of undefined, see https://docs.cypress.io/api/commands/then#Arguments
+        const { stubbedDataInterceptor } = win as any;
+        if (stubbedDataInterceptor) {
+            return stubbedDataInterceptor.getHttpRequestHistory().getLatest() || null; // must return null instead of undefined, see https://docs.cypress.io/api/commands/then#Arguments
         }
-        console.error('Mock Interceptor is not available.'); // eslint-disable-line no-console
+        console.error('Stub Data Interceptor is not available.'); // eslint-disable-line no-console
         return null;
     }));
-Cypress.Commands.add('getAllMockedHttpRequests', () => cy
+Cypress.Commands.add('getAllRequests', () => cy
     .window()
     .then((win) => {
-        const { mockInterceptor } = win as any;
-        if (mockInterceptor) {
-            return mockInterceptor.getHttpRequestHistory().getAll() || null; // must return null instead of undefined, see https://docs.cypress.io/api/commands/then#Arguments
+        const { stubbedDataInterceptor } = win as any;
+        if (stubbedDataInterceptor) {
+            return stubbedDataInterceptor.getHttpRequestHistory().getAll() || null; // must return null instead of undefined, see https://docs.cypress.io/api/commands/then#Arguments
         }
-        console.error('Mock Interceptor is not available.'); // eslint-disable-line no-console
+        console.error('Stub Data Interceptor is not available.'); // eslint-disable-line no-console
         return null;
     }));
-Cypress.Commands.add('getMockedHttpRequest', (method: string, url: string | RegExp) => cy
+Cypress.Commands.add('getRequest', (method: string, url: string | RegExp) => cy
     .window()
     .then((win) => {
-        const { mockInterceptor } = win as any;
-        if (mockInterceptor) {
-            return mockInterceptor.getHttpRequestHistory().get(method, url) || null; // must return null instead of undefined, see https://docs.cypress.io/api/commands/then#Arguments
+        const { stubbedDataInterceptor } = win as any;
+        if (stubbedDataInterceptor) {
+            return stubbedDataInterceptor.getHttpRequestHistory().get(method, url) || null; // must return null instead of undefined, see https://docs.cypress.io/api/commands/then#Arguments
         }
-        console.error('Mock Interceptor is not available.'); // eslint-disable-line no-console
+        console.error('Stub Data Interceptor is not available.'); // eslint-disable-line no-console
         return null;
     }));
-Cypress.Commands.add('getMockedHttpRequests', (method: string, url: string | RegExp) => cy
+Cypress.Commands.add('getRequests', (method: string, url: string | RegExp) => cy
     .window()
     .then((win) => {
-        const { mockInterceptor } = win as any;
-        if (mockInterceptor) {
-            return mockInterceptor.getHttpRequestHistory().filter(method, url) || null; // must return null instead of undefined, see https://docs.cypress.io/api/commands/then#Arguments
+        const { stubbedDataInterceptor } = win as any;
+        if (stubbedDataInterceptor) {
+            return stubbedDataInterceptor.getHttpRequestHistory().filter(method, url) || null; // must return null instead of undefined, see https://docs.cypress.io/api/commands/then#Arguments
         }
-        console.error('Mock Interceptor is not available.'); // eslint-disable-line no-console
+        console.error('Stub Data Interceptor is not available.'); // eslint-disable-line no-console
         return null;
     }));
 
-// Convert this to a module instead of script (allows import/export)
 export { };

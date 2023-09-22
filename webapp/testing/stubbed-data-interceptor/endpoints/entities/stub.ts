@@ -15,19 +15,11 @@
  * limitations under the License.
  */
 
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
+import { StubbedDataRouter } from 'webapp/services/stub-data-interceptor.service';
+import { entities } from './data';
 
-import { environment } from './environment.prod';
+export default (stubbedDataRouter: StubbedDataRouter) => {
+    stubbedDataRouter.registerEntityRoute('entity/:id', entities);
 
-environment.production = false;
-environment.polling.interval = 1000; //1 sec
-environment.stubbedDataInterceptor.enabled = true; //all mocks are enabled
-environment.stubbedDataInterceptor.enableRequestHistory = true; // to be able to check http requests
-// environment.stubbedDataInterceptor.logging = true;
-
-export { environment };
-
-// use this variable to drive handshaking while building application bundles, see environment.prod.ts for details
-export const IS_PRODUCTION_BUILD = false;
+    stubbedDataRouter.registerRoute('GET', 'entity/:id', (params) => (entities.filter((d) => d.id === (params as any).id)));
+};

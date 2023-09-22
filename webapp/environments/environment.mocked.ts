@@ -29,9 +29,9 @@ import { environment } from './environment.prod';
 environment.production = false;
 environment.development = true;
 
-environment.mockInterceptor.logging = true;
-environment.mockInterceptor.enabled = true; // all mocks are enabled
-environment.mockInterceptor.delay = 500; // simulating 0.5s api response time
+environment.stubbedDataInterceptor.logging = true;
+environment.stubbedDataInterceptor.enabled = true; // all mocks are enabled
+environment.stubbedDataInterceptor.delay = 500; // simulating 0.5s api response time
 environment.statefulMockHandlers = true; // mock handlers are allowed to mutate mock data
 
 environment.kitchenSinkPageVisible = true;
