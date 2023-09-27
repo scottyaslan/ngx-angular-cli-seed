@@ -15,38 +15,23 @@
  * limitations under the License.
  */
 
-import { TestBed, async } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { waitForAsync, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { fullyConfigureTestingModule } from './testing/configureTestingModule';
+import { AppModule } from './app.module';
 
-describe('Component', () => {
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
+describe('AppComponent', () => {
+    beforeEach(waitForAsync(() => {
+        fullyConfigureTestingModule({
             imports: [
-                RouterTestingModule
-            ],
-            declarations: [
-                AppComponent
-            ],
+                AppModule
+            ]
         }).compileComponents();
     }));
 
-    it('should create the webapp', () => {
+    it('should create the app', () => {
         const fixture = TestBed.createComponent(AppComponent);
         const app = fixture.debugElement.componentInstance;
         expect(app).toBeTruthy();
-    });
-
-    it(`should have as title 'Hello!'`, () => {
-        const fixture = TestBed.createComponent(AppComponent);
-        const app = fixture.debugElement.componentInstance;
-        expect(app.title).toEqual('Hello!');
-    });
-
-    it('should render title', () => {
-        const fixture = TestBed.createComponent(AppComponent);
-        fixture.detectChanges();
-        const compiled = fixture.debugElement.nativeElement;
-        expect(compiled.querySelector('.test > div').textContent).toContain('Hello!');
     });
 });

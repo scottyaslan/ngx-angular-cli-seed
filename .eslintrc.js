@@ -15,99 +15,112 @@
  * limitations under the License.
  */
 
-const OFF = 0;      // turn the rule off
-const WARNING = 1;  // turn the rule on as a warning (doesn’t affect exit code)
-const ERROR = 2;    // turn the rule on as an error (exit code is 1 when triggered)
+const OFF = 0; // turn the rule off
+const WARNING = 1; // turn the rule on as a warning (doesn’t affect exit code)
+const ERROR = 2; // turn the rule on as an error (exit code is 1 when triggered)
 
 module.exports = {
-    "extends": "eslint-config-airbnb-base",
-    "env": {
-        "browser": true,
-        "es6": true,
-        "jasmine": true
+    'extends': 'eslint-config-airbnb-base',
+    'env': {
+        'browser': true,
+        'es6': true,
+        'jasmine': true
     },
-    "parserOptions": {
-        "ecmaVersion": 2017,
-        "sourceType": "module"
+    'parserOptions': {
+        'ecmaVersion': 2017,
+        'sourceType': 'module'
     },
-    "parser": "@typescript-eslint/parser",
-    "plugins": [
-        "jasmine",
-        "@typescript-eslint"
+    'parser': '@typescript-eslint/parser',
+    'plugins': [
+        'jasmine',
+        '@typescript-eslint'
     ],
     overrides: [
         {
             // Legacy Javascript files
             files: ['*.js'],
             rules: {
-                "dot-notation": OFF,
-                "prefer-arrow-callback": OFF,
-                "no-var": OFF,
-                "no-redeclare": OFF,
-                "no-shadow": OFF,
-                "quote-props": OFF,
-                "object-shorthand": OFF,
-                "vars-on-top": OFF,
-                "no-param-reassign": OFF,
-                "block-scoped-var": OFF,
-                "prefer-destructuring": OFF,
-                "prefer-template": OFF,
-                "consistent-return": OFF,
-                "no-restricted-properties": OFF,
-                "no-use-before-define": OFF,
-                "object-curly-spacing": OFF,
-                "newline-per-chained-call": OFF,
-                "no-bitwise": OFF,
-                "no-nested-ternary": OFF,
-                "no-useless-escape": OFF,
-                "no-prototype-builtins": OFF,
-                "arrow-body-style": OFF,
-                "no-else-return": OFF
+                'dot-notation': OFF,
+                'prefer-arrow-callback': OFF,
+                'no-var': OFF,
+                'no-redeclare': OFF,
+                'no-shadow': OFF,
+                'quote-props': OFF,
+                'object-shorthand': OFF,
+                'vars-on-top': OFF,
+                'no-param-reassign': OFF,
+                'block-scoped-var': OFF,
+                'prefer-destructuring': OFF,
+                'prefer-template': OFF,
+                'consistent-return': OFF,
+                'no-restricted-properties': OFF,
+                'no-use-before-define': OFF,
+                'object-curly-spacing': OFF,
+                'newline-per-chained-call': OFF,
+                'no-bitwise': OFF,
+                'no-nested-ternary': OFF,
+                'no-useless-escape': OFF,
+                'no-prototype-builtins': OFF,
+                'arrow-body-style': OFF,
+                'no-else-return': OFF
             }
         },
         {
             // Typescript files
             files: ['*.ts'],
             rules: {
-                '@typescript-eslint/no-unused-vars': [ERROR, { args: "none" }]
+                'dot-notation': OFF,
+                '@typescript-eslint/no-unused-vars': [ERROR, { args: 'none' }]
+            }
+        },
+        {
+            // Test files
+            files: ['*.spec.ts'],
+            rules: {
+                'dot-notation': OFF,
+                'max-classes-per-file': OFF
             }
         }
     ],
-    "rules": {
+    'rules': {
         // Customize for all files
-        "no-unused-vars": [ERROR, { "args": "none" }],
-        "lines-between-class-members": [ERROR, "always", { "exceptAfterSingleLine": true }],
-        "indent": [ERROR, 4, { "SwitchCase": 1 }],
-        "jasmine/no-focused-tests": ERROR,
-        "class-methods-use-this": OFF,
-        "prefer-destructuring": [ERROR, {
-            "VariableDeclarator": {
-                "array": false,
-                "object": true
+        'no-unused-vars': [ERROR, { 'vars': 'all' }],
+        'lines-between-class-members': [ERROR, 'always', { 'exceptAfterSingleLine': true }],
+        'indent': [ERROR, 4, { 'SwitchCase': 1 }],
+        'jasmine/no-focused-tests': ERROR,
+        'class-methods-use-this': OFF,
+        'prefer-destructuring': [ERROR, {
+            'VariableDeclarator': {
+                'array': false,
+                'object': true
             },
-            "AssignmentExpression": {
-                "array": false,
-                "object": false
+            'AssignmentExpression': {
+                'array': false,
+                'object': false
             }
         }],
 
         // Disable for all files
-        "max-len": OFF,
-        "func-names": OFF,
-        "spaced-comment": OFF,
-        "comma-dangle": OFF,
-        "import/extensions": OFF,
-        "import/no-unresolved": OFF,
-        "import/no-extraneous-dependencies": OFF,
-        "no-plusplus": OFF,
-        "react/no-this-in-sfc": OFF,
-        "prefer-promise-reject-errors": OFF,
-        "object-curly-newline": OFF,
-        "no-restricted-globals": OFF,
-        "import/prefer-default-export": OFF,
-        "linebreak-style": OFF,
-        "quotes": [ERROR, "single", { "allowTemplateLiterals": true }],
-        "no-useless-constructor": OFF,
-        "no-empty-function": OFF
-    },
+        'max-len': OFF,
+        'func-names': OFF,
+        'spaced-comment': OFF,
+        'comma-dangle': OFF,
+        'import/extensions': OFF,
+        'import/no-unresolved': OFF,
+        'import/no-extraneous-dependencies': OFF,
+        'no-plusplus': OFF,
+        'react/no-this-in-sfc': OFF,
+        'prefer-promise-reject-errors': OFF,
+        'object-curly-newline': OFF,
+        'no-restricted-globals': OFF,
+        'import/prefer-default-export': OFF,
+        'linebreak-style': OFF,
+        'quotes': [ERROR, 'single', { 'allowTemplateLiterals': true }],
+        'no-useless-constructor': OFF,
+        'no-empty-function': OFF,
+        'no-underscore-dangle': ['error', { 'allowAfterThis': true }],
+        'max-classes-per-file' : OFF,
+        'no-use-before-define': OFF,
+        'no-shadow': OFF,
+    }
 };

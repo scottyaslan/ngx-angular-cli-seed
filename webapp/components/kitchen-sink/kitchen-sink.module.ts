@@ -18,13 +18,25 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { RouterOutlet } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 import { KitchenSinkComponent } from './kitchen-sink.component';
 
 @NgModule({
     declarations: [KitchenSinkComponent],
     imports: [
         CommonModule,
-        FlexLayoutModule
+        HttpClientModule,
+        FlexLayoutModule,
+        MatButtonModule,
+        MatIconModule,
+        MatSidenavModule,
+        MatToolbarModule,
+        RouterOutlet
     ]
 })
 export class KitchenSinkModule { }

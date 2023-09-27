@@ -21,15 +21,16 @@
         "declaration": false,
         "downlevelIteration": true,
         "experimentalDecorators": true,
-        "module": "esnext",
+        "module": "es2020",
         "moduleResolution": "node",
         "importHelpers": true,
-        "target": "es2015",
+        "target": "es2020",
         "typeRoots": [
-            "node_modules/@types"
+            "node_modules/@types",
+            "@types/dom-inputevent"
         ],
         "lib": [
-            "es2018",
+            "es2019",
             "dom"
         ],
         "resolveJsonModule": true,
@@ -38,5 +39,8 @@
     "angularCompilerOptions": {
         "fullTemplateTypeCheck": true,
         "strictInjectionParameters": true
-    }
+    },
+    "exclude": [
+        "e2e/cypress/*.cypress.config.ts"
+    ]
 }

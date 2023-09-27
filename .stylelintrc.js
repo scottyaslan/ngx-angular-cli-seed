@@ -20,13 +20,21 @@ module.exports = {
     "rules": {
         "indentation": null,
         "at-rule-no-unknown": [true, {
-            "ignoreAtRules": ["/include/", "/mixin/", "/function/", "/return/"]
+            "ignoreAtRules": ["for", "each", "extend", "/include/", "/mixin/", "/function/", "/return/"]
         }],
         "declaration-empty-line-before": null,
         "selector-type-no-unknown": [true, {
-            "ignoreTypes": ["/mat-/", "/flow-designer-/", "/fds-/", "/efm-/", "/td-/"]
+            "ignoreTypes": ["/mat-/", "/ngx-/"]
         }],
         "font-family-no-missing-generic-family-keyword": null,
-        "no-empty-source": null
-    }
+        "no-empty-source": null,
+
+        "selector-pseudo-element-no-unknown": [true, {
+            "ignorePseudoElements": ["ng-deep"]
+        }]
+    },
+    "ignoreFiles": [
+        "webapp/platform/assets/**/*.scss",
+        "webapp/platform/ngx-design-system-seed/assets/styles/material/**"
+    ]
 };

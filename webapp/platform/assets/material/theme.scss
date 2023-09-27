@@ -15,11 +15,15 @@
  * limitations under the License.
  */
 
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
-@import "~@angular/material/theming";
-// Plus imports for other components in your app.
-@import "./custom-theme-variables.scss";
+@use '@angular/material' as mat;
+@import "../css/variables.css";
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+
+// Fonts
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons+Two+Tone';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
 
 $fontPrimary: "Roboto", sans-serif;
 $fontSecondary: "Robot Slab", sans-serif;
@@ -34,7 +38,7 @@ $appFontPath: "../../../../node_modules/roboto-fontface/fonts";
     font-style: normal;
     font-weight: 300;
     src: local("Roboto Light"), local("Roboto-Light"),
-        url("#{$appFontPath}/roboto/Roboto-Light.woff2") format("woff2");
+    url("#{$appFontPath}/roboto/Roboto-Light.woff2") format("woff2");
 }
 
 @font-face {
@@ -42,7 +46,7 @@ $appFontPath: "../../../../node_modules/roboto-fontface/fonts";
     font-style: italic;
     font-weight: 300;
     src: local("Roboto LightItalic"), local("Roboto-LightItalic"),
-        url("#{$appFontPath}/roboto/Roboto-LightItalic.woff2") format("woff2");
+    url("#{$appFontPath}/roboto/Roboto-LightItalic.woff2") format("woff2");
 }
 
 @font-face {
@@ -50,7 +54,7 @@ $appFontPath: "../../../../node_modules/roboto-fontface/fonts";
     font-style: normal;
     font-weight: normal;
     src: local("Roboto Regular"), local("Roboto-Regular"),
-        url("#{$appFontPath}/roboto/Roboto-Regular.woff2") format("woff2");
+    url("#{$appFontPath}/roboto/Roboto-Regular.woff2") format("woff2");
 }
 
 @font-face {
@@ -58,7 +62,7 @@ $appFontPath: "../../../../node_modules/roboto-fontface/fonts";
     font-style: normal;
     font-weight: 500;
     src: local("Roboto Medium"), local("Roboto-Medium"),
-        url("#{$appFontPath}/roboto/Roboto-Medium.woff2") format("woff2");
+    url("#{$appFontPath}/roboto/Roboto-Medium.woff2") format("woff2");
 }
 
 @font-face {
@@ -66,7 +70,7 @@ $appFontPath: "../../../../node_modules/roboto-fontface/fonts";
     font-style: normal;
     font-weight: bold;
     src: local("Roboto Bold"), local("Roboto-Bold"),
-        url("#{$appFontPath}/roboto/Roboto-Bold.woff2") format("woff2");
+    url("#{$appFontPath}/roboto/Roboto-Bold.woff2") format("woff2");
 }
 
 @font-face {
@@ -74,7 +78,7 @@ $appFontPath: "../../../../node_modules/roboto-fontface/fonts";
     font-style: italic;
     font-weight: normal;
     src: local("Roboto Italic"), local("Roboto-Italic"),
-        url("#{$appFontPath}/roboto/Roboto-RegularItalic.woff2") format("woff2");
+    url("#{$appFontPath}/roboto/Roboto-RegularItalic.woff2") format("woff2");
 }
 
 @font-face {
@@ -82,8 +86,8 @@ $appFontPath: "../../../../node_modules/roboto-fontface/fonts";
     font-style: normal;
     font-weight: normal;
     src: local("RobotoSlab Regular"), local("RobotoSlab-Regular"),
-        url("#{$appFontPath}/roboto-slab/Roboto-Slab-Regular.woff2")
-            format("woff2");
+    url("#{$appFontPath}/roboto-slab/Roboto-Slab-Regular.woff2")
+    format("woff2");
 }
 
 @font-face {
@@ -91,631 +95,1026 @@ $appFontPath: "../../../../node_modules/roboto-fontface/fonts";
     font-style: normal;
     font-weight: bold;
     src: local("RobotoSlab Bold"), local("RobotoSlab-Bold"),
-        url("#{$appFontPath}/roboto-slab/Roboto-Slab-Bold.woff2")
-            format("woff2");
+    url("#{$appFontPath}/roboto-slab/Roboto-Slab-Bold.woff2")
+    format("woff2");
 }
 
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
-@include mat-core();
-
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$app-primary: mat-palette($mat-app-theme);
-$app-accent: mat-palette($mat-app-theme, 500);
-
-// The warn palette is optional (defaults to red).
-$app-warn: mat-palette($mat-app-theme);
-
-// Create the theme object (a Sass map containing all of the palettes).
-$app-theme: mat-light-theme(
-    $app-primary,
-    $app-accent,
-    $app-warn
+$fontConfig: (
+    display-4: mat.define-typography-level(112px, 112px, 300, 'Roboto', -0.0134em),
+    display-3: mat.define-typography-level(56px, 56px, 400, 'Roboto', -0.0089em),
+    display-2: mat.define-typography-level(45px, 48px, 400, 'Roboto', 0.0000em),
+    display-1: mat.define-typography-level(34px, 40px, 400, 'Roboto', 0.0074em),
+    headline: mat.define-typography-level(24px, 32px, 400, 'Roboto', 0.0000em),
+    title: mat.define-typography-level(20px, 32px, 500, 'Roboto', 0.0075em),
+    subheading-2: mat.define-typography-level(16px, 28px, 400, 'Roboto', 0.0094em),
+    subheading-1: mat.define-typography-level(15px, 24px, 500, 'Roboto', 0.0067em),
+    body-2: mat.define-typography-level(14px, 24px, 500, 'Roboto', 0.0179em),
+    body-1: mat.define-typography-level(14px, 20px, 400, 'Roboto', 0.0179em),
+    button: mat.define-typography-level(14px, 14px, 500, 'Roboto', 0.0893em),
+    caption: mat.define-typography-level(12px, 20px, 400, 'Roboto', 0.0333em),
+    input: mat.define-typography-level(inherit, 1.125, 400, 'Roboto', 1.5px)
 );
 
+// Foreground Elements
+
+// Light Theme Text
+$dark-text: #3d3d3d;
+$dark-primary-text: rgba($dark-text, 0.87);
+$dark-accent-text: rgba($dark-primary-text, 0.54);
+$dark-disabled-text: rgba($dark-primary-text, 0.38);
+$dark-dividers: rgba($dark-primary-text, 0.12);
+$dark-focused: rgba($dark-primary-text, 0.12);
+
+$mat-light-theme-foreground: (
+    base:              black,
+    divider:           $dark-dividers,
+    dividers:          $dark-dividers,
+    disabled:          $dark-disabled-text,
+    disabled-button:   rgba($dark-text, 0.26),
+    disabled-text:     $dark-disabled-text,
+    elevation:         black,
+    secondary-text:    $dark-accent-text,
+    hint-text:         $dark-disabled-text,
+    accent-text:       $dark-accent-text,
+    icon:              $dark-accent-text,
+    icons:             $dark-accent-text,
+    text:              $dark-primary-text,
+    slider-min:        $dark-primary-text,
+    slider-off:        rgba($dark-text, 0.26),
+    slider-off-active: $dark-disabled-text,
+);
+
+// Dark Theme text
+$light-text: var(--white);
+$light-primary-text: $light-text;
+$light-accent-text: rgba($light-primary-text, 0.7);
+$light-disabled-text: rgba($light-primary-text, 0.5);
+$light-dividers: rgba($light-primary-text, 0.12);
+$light-focused: rgba($light-primary-text, 0.12);
+
+$mat-dark-theme-foreground: (
+    base:              $light-text,
+    divider:           $light-dividers,
+    dividers:          $light-dividers,
+    disabled:          $light-disabled-text,
+    disabled-button:   rgba($light-text, 0.3),
+    disabled-text:     $light-disabled-text,
+    elevation:         black,
+    hint-text:         $light-disabled-text,
+    secondary-text:    $light-accent-text,
+    accent-text:       $light-accent-text,
+    icon:              $light-text,
+    icons:             $light-text,
+    text:              $light-text,
+    slider-min:        $light-text,
+    slider-off:        rgba($light-text, 0.3),
+    slider-off-active: rgba($light-text, 0.3),
+);
+
+// Background config
+// Light bg
+$light-background:    #fff;
+$light-bg-darker-5:   darken($light-background, 5%);
+$light-bg-darker-10:  darken($light-background, 10%);
+$light-bg-darker-20:  darken($light-background, 20%);
+$light-bg-darker-30:  darken($light-background, 30%);
+$light-bg-lighter-5:  lighten($light-background, 5%);
+$dark-bg-tooltip:     lighten(#2c2c2c, 20%);
+$dark-bg-alpha-4:     rgba(#2c2c2c, 0.04);
+$dark-bg-alpha-12:    rgba(#2c2c2c, 0.12);
+
+$mat-light-theme-background: (
+    background:               $light-background,
+    status-bar:               $light-bg-darker-20,
+    app-bar:                  $light-bg-darker-5,
+    hover:                    $dark-bg-alpha-4,
+    card:                     $light-bg-lighter-5,
+    dialog:                   $light-bg-lighter-5,
+    tooltip:                  $dark-bg-tooltip,
+    disabled-button:          $dark-bg-alpha-12,
+    raised-button:            $light-bg-lighter-5,
+    focused-button:           $dark-focused,
+    selected-button:          $light-bg-darker-20,
+    selected-disabled-button: $light-bg-darker-30,
+    disabled-button-toggle:   $light-bg-darker-10,
+    unselected-chip:          $light-bg-darker-10,
+    disabled-list-option:     $light-bg-darker-10,
+);
+
+// Dark bg
+$dark-background:     #2c2c2c;
+$dark-bg-lighter-5:   lighten($dark-background, 5%);
+$dark-bg-lighter-10:  lighten($dark-background, 10%);
+$dark-bg-lighter-20:  lighten($dark-background, 20%);
+$dark-bg-lighter-30:  lighten($dark-background, 30%);
+$light-bg-alpha-4:    rgba(var(--white), 0.04);
+$light-bg-alpha-12:   rgba(var(--white), 0.12);
+
+// Background palette for dark themes.
+$mat-dark-theme-background: (
+    background:               $dark-background,
+    status-bar:               $dark-bg-lighter-20,
+    app-bar:                  $dark-bg-lighter-5,
+    hover:                    $light-bg-alpha-4,
+    card:                     $dark-bg-lighter-5,
+    dialog:                   $dark-bg-lighter-5,
+    tooltip:                  $dark-bg-lighter-20,
+    disabled-button:          $light-bg-alpha-12,
+    raised-button:            $dark-bg-lighter-5,
+    focused-button:           $light-focused,
+    selected-button:          $dark-bg-lighter-20,
+    selected-disabled-button: $dark-bg-lighter-30,
+    disabled-button-toggle:   $dark-bg-lighter-10,
+    unselected-chip:          $dark-bg-lighter-20,
+    disabled-list-option:     $dark-bg-lighter-10,
+);
+
+// Compute font config
+@include mat.core($fontConfig);
+
+// Theme Config
+
+body {
+    --primary-color: var(--aqua-300);
+    --primary-lighter-color: var(--aqua-100);
+    --primary-darker-color: var(--aqua-400);
+    --text-primary-color: #{$light-primary-text};
+    --text-primary-lighter-color: #{$dark-primary-text};
+    --text-primary-darker-color: #{$light-primary-text};
+}
+$mat-primary: (
+    main: var(--aqua-300),
+    lighter: var(--aqua-100),
+    darker: var(--aqua-400),
+    200: var(--aqua-300), // For slide toggle,
+    contrast : (
+        main: $light-primary-text,
+        lighter: $dark-primary-text,
+        darker: $light-primary-text,
+    )
+);
+$theme-primary: mat.define-palette($mat-primary, main, lighter, darker);
+
+
+body {
+    --accent-color: var(--gray-300);
+    --accent-lighter-color: var(--gray-100);
+    --accent-darker-color: var(--gray-400);
+    --text-accent-color: #{$dark-primary-text};
+    --text-accent-lighter-color: #{$dark-primary-text};
+    --text-accent-darker-color: #{$light-primary-text};
+}
+$mat-accent: (
+    main: var(--gray-300),
+    lighter: var(--gray-100),
+    darker: var(--gray-400),
+    200: var(--gray-300), // For slide toggle,
+    contrast : (
+        main: $dark-primary-text,
+        lighter: $dark-primary-text,
+        darker: $light-primary-text,
+    )
+);
+$theme-accent: mat.define-palette($mat-accent, main, lighter, darker);
+
+
+body {
+    --warn-color: var(--red-400);
+    --warn-lighter-color: var(--red-200);
+    --warn-darker-color: var(--red-500);
+    --text-warn-color: #{$light-primary-text};
+    --text-warn-lighter-color: #{$dark-primary-text};
+    --text-warn-darker-color: #{$light-primary-text};
+}
+$mat-warn: (
+    main: var(--red-400),
+    lighter: var(--red-200),
+    darker: var(--red-500),
+    200: var(--red-400), // For slide toggle,
+    contrast : (
+        main: $light-primary-text,
+        lighter: $dark-primary-text,
+        darker: $light-primary-text,
+    )
+);
+$theme-warn: mat.define-palette($mat-warn, main, lighter, darker);
+
+$theme: (
+    primary: $theme-primary,
+    accent: $theme-accent,
+    warn: $theme-warn,
+    is-dark: false,
+    foreground: $mat-light-theme-foreground,
+    background: $mat-light-theme-background,
+);
+$altTheme: (
+    primary: $theme-primary,
+    accent: $theme-accent,
+    warn: $theme-warn,
+    is-dark: true,
+    foreground: $mat-dark-theme-foreground,
+    background: $mat-dark-theme-background,
+);
+
+// Theme Init
+@include mat.all-component-themes($theme);
+
+.theme-alternate {
+    @include mat.all-component-themes($altTheme);
+}
+
 // Define a mixin that accepts a theme and outputs the theme-specific styles.
-@mixin default-theme($theme) {
-    body {
-        color: $primary-text;
-        // background-color: $default-background-color;
-    }
-
-    html, body {
-      height: 100%;
-     }
-
-    .mat-drawer-backdrop.mat-drawer-shown {
-        background-color: rgba(0, 0, 0, 0.25);
-    }
-
-    .mat-drawer:not(.mat-drawer-side) {
-        border-radius: 3px;
-        box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.35);
-        background-color: var(--white);
-    }
-    
-    .mat-sidenav-container {
-        height: 100%; 
-    }
-
-    .mat-text-title {
-        padding-top: 6px;
-    }
-
-    .mat-card-title {
-        font-size: 24px;
-        font-weight: normal;
-        line-height: 1.33;
-    }
-}
-
-@mixin form-theme($theme) {
-    .form-group {
-        & > mat-form-field:not(.mat-form-field-type-mat-chip-list) {
-            width: 400px;
-        }
-    }
-
-    mat-form-field {
-        &.mat-form-field-type-mat-chip-list {
-            .mat-form-field-wrapper {
-                padding-bottom: 0;
-
-                .mat-form-field-underline {
-                    display: none;
-                }
-
-                .mat-form-field-infix {
-                    width: 100%;
-                    margin-top: 0;
-                    border-top: none;
-                }
-
-                .mat-chip-list-wrapper {
-                    display: flex;
-                    flex-direction: column;
-                    flex-wrap: wrap;
-                    margin: -4px;
-                    align-items: flex-start;
-
-                    .mat-chip {
-                        &.mat-standard-chip {
-                            &.mat-primary {
-                                background-color: var(--gray-500);
-                                color: white;
-                                font-weight: 200;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    mat-form-field:not(.mat-form-field-type-mat-chip-list) {
+@mixin typography() {
+    html {
         width: 100%;
-
-        .mat-form-field-wrapper {
-            border-radius: $default-box-border-radius;
-            border: solid 1px var(--gray-400);
-            background-color: var(--white);
-            padding: 0px !important;
-            line-height: 1.2;
-            cursor: pointer;
-
-            .mat-form-field-infix {
-                padding: 7px 0px !important;
-                margin-top: 0;
-                border: none;
-
-                textarea {
-                    padding-left: 8px;
-                    padding-right: 8px;
-                    position: relative;
-                    top: -3px;
-                    overflow: hidden;
-                }
-
-                .mat-form-field-label-wrapper {
-                    .mat-form-field-label {
-                        top: 14px;
-                        left: 8px;
-                        color: var(--gray-900);
-                    }
-                }
-
-                .mat-select {
-                    &.with-opt-group {
-                        .mat-select-trigger {
-                            left: 32px;
-
-                            .mat-select-value {
-                                left: -24px;
-                            }
-
-                            .mat-select-arrow-wrapper {
-                                right: 7px;
-                            }
-                        }
-                    }
-
-                    .mat-select-trigger {
-                        left: 15px;
-                        width: calc(100% - 30px);
-
-                        .mat-select-value {
-                            position: relative;
-                            left: -7px;
-                        }
-
-                        .mat-select-arrow-wrapper {
-                            position: relative;
-                            right: -9px;
-                            top: 1px;
-                        }
-                    }
-
-                    &.mat-select-invalid {
-                        .mat-select-arrow {
-                            color: var(--gray-900);
-                        }
-                    }
-                }
-            }
-
-            .mat-form-field-underline,
-            .mat-form-field-subscript-wrapper {
-                display: none;
-            }
-        }
-
-        &.mat-focused {
-            .mat-form-field-wrapper {
-                border: solid 1px var(--blue-500);
-                color: var(--gray-900);
-            }
-
-            .mat-select-arrow {
-                color: var(--blue-500);
-            }
-        }
-
-        &.mat-form-field-invalid {
-            .mat-form-field-wrapper {
-                border: solid 1px var(--red-500);
-                background-color: var(--red-050);
-            }
-        }
-    }
-    .mat-menu-panel,
-    .mat-autocomplete-panel,
-    .mat-select-panel {
-        border-radius: $default-box-border-radius;
-        box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
-        border: solid 1px var(--gray-300);
-        margin-top: 30px;
-        margin-bottom: 30px;
-
-        button,
-        mat-option {
-            font-size: 14px;
-
-            &.mat-menu-item,
-            &.mat-option {
-                line-height: 32px;
-                height: 32px;
-                color: var(--gray-700);
-
-                &.mat-selected:not(.mat-option-multiple) {
-                    background: var(--gray-200);
-                    color: var(--gray-900);
-                }
-
-                &.disabled,
-                &.mat-option-disabled:not(.mat-active) {
-                    opacity: 0.2;
-                    cursor: not-allowed;
-                }
-            }
-
-            .mat-option-text {
-                display: flex;
-                align-items: center;
-
-                .provider-logo {
-                    margin-right: 10px;
-                    height: 26px;
-                }
-            }
-        }
-    }
-    .mat-menu-panel,
-    .mat-autocomplete-panel {
-        margin-top: 4px;
-        margin-bottom: 0px;
-    }
-    .mat-menu-panel {
-        min-height: initial !important;
-    }
-}
-
-@mixin checkbox-theme($theme) {
-    #cfx-ui {
-        mat-checkbox {
-            .mat-checkbox-background,
-            .mat-checkbox-frame {
-                border-radius: $default-box-border-radius;
-                border-color: $checkbox-border-color;
-            }
-
-            .mat-checkbox-frame {
-                border-width: 1px;
-            }
-        }
-
-        .mat-checkbox-disabled {
-            cursor: not-allowed;
-        }
-    }
-}
-
-@mixin table-theme($theme) {
-    #cfx-ui {
-        mat-paginator {
-            .mat-form-field-underline {
-                display: none;
-            }
-
-            &.mat-paginator {
-                background: none;
-                height: 37px;
-
-                .mat-paginator-container {
-                    min-height: initial;
-                    justify-content: flex-start;
-                    padding: 0;
-
-                    .mat-icon-button {
-                        width: 24px;
-                        height: 24px;
-                        line-height: 22px;
-                    }
-
-                    .mat-paginator-page-size {
-                        align-items: center;
-                        margin-right: 8px;
-
-                        mat-form-field {
-                            width: 55px;
-
-                            .mat-select-trigger {
-                                left: 15px;
-                                width: calc(100% - 15px);
-                            }
-
-                            .mat-select-arrow-wrapper {
-                                right: 5px;
-                            }
-                        }
-                    }
-                }
-
-                .mat-paginator-page-size-select {
-                    margin: 0 4px 0 4px;
-                }
-
-                .mat-paginator-icon {
-                    width: 23px;
-                }
-            }
-        }
-
-        .mat-table {
-            border-radius: $default-box-border-radius;
-            background: none;
-            margin-top: 0px;
-
-            .mat-footer-row,
-            .mat-header-row,
-            .mat-row {
-                background: none;
-                border-color: var(--gray-200);
-                border-bottom-width: 1px;
-                border-style: solid;
-
-                &.highlight {
-                    td {
-                        background: var(--gray-40);
-                    }
-                }
-
-                td,
-                th {
-                    border: none;
-                    vertical-align: middle;
-                }
-            }
-
-            tr {
-                height: initial;
-
-                .cell-content {
-                    min-height: 41px;
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
-                    padding-left: 5px;
-                    padding-right: 5px;
-                    padding-top: 5px;
-                    padding-bottom: 5px;
-                    text-align: left;
-
-                    &.small {
-                        font-size: 12px;
-                    }
-                }
-
-                td:last-of-type {
-                    padding-right: 8px;
-                }
-
-                .labels {
-                    span {
-                        font-size: 10px;
-                        margin-right: 5px;
-
-                        &:last-of-type {
-                            margin-right: 0px;
-                        }
-
-                        white-space: nowrap;
-                    }
-                }
-            }
-
-            .mat-header-row {
-                border-color: var(--gray-300);
-
-                .mat-header-cell {
-                    font-weight: 400;
-                    color: var(--gray-700);
-
-                    .mat-sort-header-sorted {
-                        color: var(--gray-900);
-                        font-weight: 500;
-                    }
-                }
-            }
-
-            .mat-header-cell,
-            .mat-cell {
-                padding: 0;
-
-                .mat-checkbox {
-                    margin-left: 8px;
-                    margin-right: 5px;
-                }
-            }
-
-            .mat-cell {
-                color: var(--gray-900);
-            }
-        }
-    }
-}
-
-@mixin slider-theme($theme) {
-    #cfx-ui {
-        mat-slide-toggle {
-            height: 20px;
-            line-height: 20px;
-
-            .mat-slide-toggle-bar {
-                height: 20px;
-                width: 36px;
-                border-radius: 10px;
-                border: solid 1px var(--gray-600);
-                background-color: var(--gray-300);
-            }
-
-            .mat-slide-toggle-ripple {
-                top: calc(50% - 20px);
-                left: calc(50% + -30px);
-            }
-
-            .mat-slide-toggle-thumb-container {
-                transform: translate3d(1px, 0, 0);
-                height: 20px;
-                width: 36px;
-                top: 0;
-            }
-
-            &.mat-checked .mat-slide-toggle-thumb-container {
-                transform: translate3d(19px, 0, 0);
-            }
-
-            .mat-slide-toggle-thumb {
-                height: 16px;
-                width: 16px;
-                box-shadow: 0 1px 1px 0 var(--black-25);
-                top: 2px;
-                position: relative;
-            }
-
-            &.mat-checked {
-                .mat-slide-toggle-bar {
-                    border: solid 1px var(--blue-400);
-                    background-color: var(--blue-400);
-                }
-
-                .mat-slide-toggle-thumb {
-                    background-color: var(--white);
-                }
-            }
-
-            &.medium {
-                height: 16px;
-                line-height: 16px;
-
-                .mat-slide-toggle-bar {
-                    height: 16px;
-                    width: 27px;
-                    border-radius: 8px;
-                }
-
-                .mat-slide-toggle-ripple {
-                    top: calc(50% - 20px);
-                    left: calc(50% - 26px);
-                }
-
-                .mat-slide-toggle-thumb-container {
-                    transform: translate3d(1px, 0, 0);
-                    height: 16px;
-                    width: 27px;
-                    top: 0;
-                }
-
-                &.mat-checked .mat-slide-toggle-thumb-container {
-                    transform: translate3d(13px, 0, 0);
-                }
-
-                &.mat-pending:not(.mat-checked) .mat-slide-toggle-thumb-container {
-                    transform: translate3d(7.5px, 0, 0);
-                }
-
-                .mat-slide-toggle-thumb {
-                    height: 12px;
-                    width: 12px;
-                    box-shadow: 0 1px 1px 0 var(--black-25);
-                    top: 2px;
-                    position: relative;
-                }
-            }
-
-            &.mat-pending:not(.mat-checked) {
-                .mat-slide-toggle-bar {
-                    border: solid 1px var(--blue-200);
-                    background-color: var(--blue-200);
-                }
-
-                .mat-slide-toggle-thumb {
-                    background-color: var(--white);
-
-                    &::after {
-                        content: '';
-                        background: url('/platform/assets/cdp-icons/ic-status-in-progress.svg');
-                        background-size: 12px 12px;
-                        position: absolute;
-                        width: 12px;
-                        height: 12px;
-                        animation: spin 4s linear infinite;
-                    }
-
-                    @keyframes spin {
-                        100% {
-                            -webkit-transform: rotate(360deg);
-                            transform: rotate(360deg);
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
-@mixin tab-theme($theme) {
-    nav[mat-tab-nav-bar] a,
-    .mat-tab-labels .mat-tab-label {
-        height: auto;
-        min-width: 76px;
-        margin-right: var(--margin-md);
-        padding: 0;
-        opacity: 1;
-        color: (--grey-700);
+        height: 100%;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
 
-    nav[mat-tab-nav-bar] a,
-    .mat-tab-labels .mat-tab-label .mat-tab-label-content {
-        padding: var(--pad-sm) 0;
+    body {
+        @include z-index(default);
+        font-family: "Roboto", sans-serif;
+        font-size: 14px;
+        width: 100%;
+        height: 100%;
+    }
+
+    .pointer {
+        cursor: pointer;
+    }
+
+    .disabled {
+        cursor: not-allowed;
+    }
+
+    .uppercase {
+        text-transform: uppercase;
+    }
+
+    .capitalize {
+        text-transform: capitalize;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .text-justify {
+        text-align: justify;
+    }
+
+    .error {
+        color: var(--red-500);
+        fill: var(--red-500);
+    }
+
+    .warning {
+        color: var(--orange-400);
+        fill: var(--orange-400);
+    }
+
+    .success {
+        color: var(--green-600);
+        fill: var(--green-600);
+    }
+
+    .link-color {
+        color: var(--blue-600);
+        fill: var(--blue-600);
+    }
+
+    .quote {
+        font-family: Roboto;
+        font-size: 12px;
         font-weight: normal;
+        font-stretch: normal;
+        font-style: italic;
+        line-height: 1.33;
+        letter-spacing: normal;
+        color: var(--gray-700);
+        fill: var(--gray-700);
     }
 
-    nav[mat-tab-nav-bar] a.mat-tab-label-active,
-    .mat-tab-labels .mat-tab-label-active {
+    .italic {
+        font-style: italic;
+    }
+
+    .bold {
+        font-weight: 600;
+    }
+
+    a,
+    .link {
+        color: var(--blue-600);
+        cursor: pointer;
+        text-decoration: none;
+
+        &:hover {
+            color: var(--blue-700);
+            text-decoration: underline;
+        }
+
+        &:focus:not(.focus-visible) {
+            outline: 0;
+        }
+
+        &.focus-visible {
+            color: var(--blue-700);
+            text-decoration: underline;
+        }
+
+        > .mat-icon {
+            height: 16px;
+            width: 16px;
+            vertical-align: text-bottom;
+        }
+    }
+
+    .link-disabled {
+        color: var(--gray-400);
+        cursor: not-allowed;
+    }
+}
+
+@mixin buttons() {
+    // Handle buttons appropriately, with respect to line-height
+    .mat-raised-button, .mat-stroked-button, .mat-flat-button {
+        padding: 0 1.15em;
+        margin: 0 .65em;
+        min-width: 3em;
+        line-height: 36.4px
+    }
+}
+
+@mixin chips() {
+    .mat-standard-chip {
+        padding: .5em .85em;
+        min-height: 2.5em;
+    }
+}
+
+@mixin icons() {
+    .material-icons {
+        font-size: 24px;
+        font-family: 'Material Icons Two Tone', 'Material Icons';
+        .mat-badge-content {
+            font-family: 'Roboto';
+        }
+    }
+
+    mat-icon.size-48 {
+        width: 48px;
+        height: 48px;
+        vertical-align: text-bottom;
+        display: inline-block;
+    }
+
+    mat-icon.size-42 {
+        width: 42px;
+        height: 42px;
+        vertical-align: text-bottom;
+        display: inline-block;
+    }
+
+    mat-icon.size-40 {
+        width: 40px;
+        height: 40px;
+        vertical-align: text-bottom;
+        display: inline-block;
+    }
+
+    mat-icon.size-36 {
+        width: 36px;
+        height: 36px;
+        vertical-align: text-bottom;
+        display: inline-block;
+    }
+
+    mat-icon.size-28 {
+        width: 28px;
+        height: 28px;
+        vertical-align: text-bottom;
+        display: inline-block;
+    }
+
+    mat-icon.size-24 {
+        width: 24px;
+        height: 24px;
+        vertical-align: text-bottom;
+        display: inline-block;
+    }
+
+    mat-icon.size-20 {
+        width: 20px;
+        height: 20px;
+        vertical-align: text-bottom;
+        display: inline-block;
+    }
+
+    mat-icon.size-18 {
+        width: 18px;
+        height: 18px;
+        vertical-align: text-bottom;
+        display: inline-block;
+    }
+
+    mat-icon.size-16 {
+        width: 16px;
+        height: 16px;
+        vertical-align: text-bottom;
+        display: inline-block;
+    }
+
+    mat-icon.size-14 {
+        width: 14px;
+        height: 14px;
+        vertical-align: text-bottom;
+        display: inline-block;
+    }
+
+    mat-icon.size-12 {
+        width: 12px;
+        height: 12px;
+        vertical-align: text-bottom;
+        display: inline-block;
+    }
+
+    mat-icon.height-24 {
+        height: 24px;
+    }
+
+    mat-icon.height-20 {
+        height: 20px;
+    }
+}
+
+@mixin paddings() {
+    .pad-xxl {
+        padding: var(--pad-xxl);
+    }
+
+    .pad-xl {
+        padding: var(--pad-xl);
+    }
+
+    .pad-lg {
+        padding: var(--pad-lg);
+    }
+
+    .pad-md {
+        padding: var(--pad-md);
+    }
+
+    .pad-sm {
+        padding: var(--pad-sm);
+    }
+
+    .pad-xs {
+        padding: var(--pad-xs);
+    }
+
+    .pad-none {
+        padding: 0;
+    }
+
+    .pad-left-none {
+        padding-left: 0;
+    }
+
+    .pad-right-none {
+        padding-right: 0;
+    }
+
+    .pad-top-none {
+        padding-top: 0;
+    }
+
+    .pad-bottom-none {
+        padding-bottom: 0;
+    }
+
+    .pad-bottom-xxl {
+        padding-bottom: var(--pad-xxl);
+    }
+
+    .pad-bottom-xl {
+        padding-bottom: var(--pad-xl);
+    }
+
+    .pad-bottom-lg {
+        padding-bottom: var(--pad-lg);
+    }
+
+    .pad-bottom-md {
+        padding-bottom: var(--pad-md);
+    }
+
+    .pad-bottom-sm {
+        padding-bottom: var(--pad-sm);
+    }
+
+    .pad-bottom-xs {
+        padding-bottom: var(--pad-xs);
+    }
+
+    .pad-left-xxl {
+        padding-left: var(--pad-xxl);
+    }
+
+    .pad-left-xl {
+        padding-left: var(--pad-xl);
+    }
+
+    .pad-left-lg {
+        padding-left: var(--pad-lg);
+    }
+
+    .pad-left-md {
+        padding-left: var(--pad-md);
+    }
+
+    .pad-left-sm {
+        padding-left: var(--pad-sm);
+    }
+
+    .pad-left-xs {
+        padding-left: var(--pad-xs);
+    }
+
+    .pad-top-xxl {
+        padding-top: var(--pad-xxl);
+    }
+
+    .pad-top-xl {
+        padding-top: var(--pad-xl);
+    }
+
+    .pad-top-lg {
+        padding-top: var(--pad-lg);
+    }
+
+    .pad-top-md {
+        padding-top: var(--pad-md);
+    }
+
+    .pad-top-sm {
+        padding-top: var(--pad-sm);
+    }
+
+    .pad-top-xs {
+        padding-top: var(--pad-xs);
+    }
+
+    .pad-right-xxl {
+        padding-right: var(--pad-xxl);
+    }
+
+    .pad-right-xl {
+        padding-right: var(--pad-xl);
+    }
+
+    .pad-right-lg {
+        padding-right: var(--pad-lg);
+    }
+
+    .pad-right-md {
+        padding-right: var(--pad-md);
+    }
+
+    .pad-right-sm {
+        padding-right: var(--pad-sm);
+    }
+
+    .pad-right-xs {
+        padding-right: var(--pad-xs);
+    }
+}
+
+@mixin margins() {
+    .push-xxl {
+        margin: var(--margin-xxl);
+    }
+
+    .push-xl {
+        margin: var(--margin-xl);
+    }
+
+    .push-lg {
+        margin: var(--margin-lg);
+    }
+
+    .push-md {
+        margin: var(--margin-md);
+    }
+
+    .push-sm {
+        margin: var(--margin-sm);
+    }
+
+    .push-xs {
+        margin: var(--margin-xs);
+    }
+
+    .push-none {
+        margin: 0;
+    }
+
+    .push-left-none {
+        margin-left: 0;
+    }
+
+    .push-right-none {
+        margin-right: 0;
+    }
+
+    .push-top-none {
+        margin-top: 0;
+    }
+
+    .push-bottom-none {
+        margin-bottom: 0;
+    }
+
+    .push-bottom-xxl {
+        margin-bottom: var(--margin-xxl);
+    }
+
+    .push-bottom-xl {
+        margin-bottom: var(--margin-xl);
+    }
+
+    .push-bottom-lg {
+        margin-bottom: var(--margin-lg);
+    }
+
+    .push-bottom-md {
+        margin-bottom: var(--margin-md);
+    }
+
+    .push-bottom-sm {
+        margin-bottom: var(--margin-sm);
+    }
+
+    .push-bottom-xs {
+        margin-bottom: var(--margin-xs);
+    }
+
+    .push-left-xxl {
+        margin-left: var(--margin-xxl);
+    }
+
+    .push-left-xl {
+        margin-left: var(--margin-xl);
+    }
+
+    .push-left-lg {
+        margin-left: var(--margin-lg);
+    }
+
+    .push-left-md {
+        margin-left: var(--margin-md);
+    }
+
+    .push-left-sm {
+        margin-left: var(--margin-sm);
+    }
+
+    .push-left-xs {
+        margin-left: var(--margin-xs);
+    }
+
+    .push-top-xxl {
+        margin-top: var(--margin-xxl);
+    }
+
+    .push-top-xl {
+        margin-top: var(--margin-xl);
+    }
+
+    .push-top-lg {
+        margin-top: var(--margin-lg);
+    }
+
+    .push-top-md {
+        margin-top: var(--margin-md);
+    }
+
+    .push-top-sm {
+        margin-top: var(--margin-sm);
+    }
+
+    .push-top-xs {
+        margin-top: var(--margin-xs);
+    }
+
+    .push-right-xxl {
+        margin-right: var(--margin-xxl);
+    }
+
+    .push-right-xl {
+        margin-right: var(--margin-xl);
+    }
+
+    .push-right-lg {
+        margin-right: var(--margin-lg);
+    }
+
+    .push-right-md {
+        margin-right: var(--margin-md);
+    }
+
+    .push-right-sm {
+        margin-right: var(--margin-sm);
+    }
+
+    .push-right-xs {
+        margin-right: var(--margin-xs);
+    }
+}
+
+@mixin toolbars() {
+
+}
+
+$z-index: (
+    tooltip : 1200,
+    modal : 800,
+    header : 500,
+    default : 1,
+);
+
+@function z-index($key) {
+    @return map-get($z-index, $key);
+}
+
+/* stylelint-disable */
+:export {
+    tooltip: z-index(tooltip);
+    modal: z-index(modal);
+    header: z-index(header);
+    default: z-index(default);
+}
+/* stylelint-enable */
+
+:root {
+    --z-index-tooltip: z-index(tooltip);
+    --z-index-modal: z-index(modal);
+    --z-index-header: z-index(header);
+    --z-index-default: z-index(default);
+}
+
+@mixin z-index($key) {
+    z-index: z-index($key);
+}
+
+@mixin colors() {
+    .gray-100 {
+        color: var(--gray-100);
+    }
+
+    .gray-200 {
+        color: var(--gray-200);
+    }
+
+    .gray-300 {
+        color: var(--gray-300);
+    }
+
+    .gray-400 {
+        color: var(--gray-400);
+    }
+
+    .gray-500 {
+        color: var(--gray-500);
+    }
+
+    .gray-600 {
+        color: var(--gray-600);
+    }
+
+    .blue-100 {
+        color: var(--blue-100);
+    }
+
+    .blue-200 {
+        color: var(--blue-200);
+    }
+
+    .blue-300 {
+        color: var(--blue-300);
+    }
+
+    .blue-400 {
+        color: var(--blue-400);
+    }
+
+    .blue-500 {
         color: var(--blue-500);
     }
 
-    .mat-tab-body {
-        padding: var(--pad-md) 0;
+    .blue-600 {
+        color: var(--blue-600);
+    }
+
+    .green-100 {
+        color: var(--green-100);
+    }
+
+    .green-200 {
+        color: var(--green-200);
+    }
+
+    .green-300 {
+        color: var(--green-300);
+    }
+
+    .green-400 {
+        color: var(--green-400);
+    }
+
+    .green-500 {
+        color: var(--green-500);
+    }
+
+    .green-600 {
+        color: var(--green-600);
+    }
+
+    .orange-100 {
+        color: var(--orange-100);
+    }
+
+    .orange-200 {
+        color: var(--orange-200);
+    }
+
+    .orange-300 {
+        color: var(--orange-300);
+    }
+
+    .orange-400 {
+        color: var(--orange-400);
+    }
+
+    .orange-500 {
+        color: var(--orange-500);
+    }
+
+    .orange-600 {
+        color: var(--orange-600);
+    }
+
+    .red-100 {
+        color: var(--red-100);
+    }
+
+    .red-200 {
+        color: var(--red-200);
+    }
+
+    .red-300 {
+        color: var(--red-300);
+    }
+
+    .red-400 {
+        color: var(--red-400);
+    }
+
+    .red-500 {
+        color: var(--red-500);
+    }
+
+    .red-600 {
+        color: var(--red-600);
+    }
+
+    .purple-100 {
+        color: var(--purple-100);
+    }
+
+    .purple-200 {
+        color: var(--purple-200);
+    }
+
+    .purple-300 {
+        color: var(--purple-300);
+    }
+
+    .purple-400 {
+        color: var(--purple-400);
+    }
+
+    .purple-500 {
+        color: var(--purple-500);
+    }
+
+    .purple-600 {
+        color: var(--purple-600);
+    }
+
+    .yellow-100 {
+        color: var(--yellow-100);
+    }
+
+    .yellow-200 {
+        color: var(--yellow-200);
+    }
+
+    .yellow-300 {
+        color: var(--yellow-300);
+    }
+
+    .yellow-400 {
+        color: var(--yellow-400);
+    }
+
+    .yellow-500 {
+        color: var(--yellow-500);
+    }
+
+    .yellow-600 {
+        color: var(--yellow-600);
+    }
+
+    .aqua-100 {
+        color: var(--aqua-100);
+    }
+
+    .aqua-200 {
+        color: var(--aqua-200);
+    }
+
+    .aqua-300 {
+        color: var(--aqua-300);
+    }
+
+    .aqua-400 {
+        color: var(--aqua-400);
+    }
+
+    .aqua-500 {
+        color: var(--aqua-500);
+    }
+
+    .aqua-600 {
+        color: var(--aqua-600);
+    }
+
+    .pink-100 {
+        color: var(--pink-100);
+    }
+
+    .pink-200 {
+        color: var(--pink-200);
+    }
+
+    .pink-300 {
+        color: var(--pink-300);
+    }
+
+    .pink-400 {
+        color: var(--pink-400);
+    }
+
+    .pink-500 {
+        color: var(--pink-500);
+    }
+
+    .pink-600 {
+        color: var(--pink-600);
     }
 }
 
-@mixin menu-theme($theme) {
-    .mat-menu-panel {
-        border-radius: 3px;
-        box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2);
+@mixin sidenav() {
+    .mat-sidenav-container {
+        height: 100%;
+    }
 
-        .mat-menu-content {
-            .mat-menu-item {
-                mat-icon {
-                    width: 20px;
-                    height: 20px;
-                    margin-right: var(--margin-xs) !important;
-                    vertical-align: baseline !important;
-                    line-height: 20px;
-                }
+    mat-sidenav {
+        width: 50%;
+        min-width: 500px;
+    }
 
-                &:disabled {
-                    cursor: not-allowed;
-                }
-            }
-        }
+    .sidenav-content {
+        position: absolute;
+        bottom: 60px;
+        top: 80px;
+        right: 0;
+        left: 0;
+        overflow: auto;
     }
 }
-
-@mixin dialog-theme($theme) {
-    #cfx-ui {
-        .mat-dialog-container {
-            padding: 24px;
-            border-radius: 3px;
-            box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.35);
-            background-color: var(--white);
-        }
-
-        .cdk-overlay-backdrop.cdk-overlay-backdrop-showing:not(.cdk-overlay-transparent-backdrop) {
-            background-color: rgba(0, 0, 0, 0.25);
-        }
-    }
-}
-
-@mixin progress-bar-theme($theme) {
-    .mat-progress-bar {
-        border-radius: 2px;
-    }
-
-    .mat-progress-bar-fill::after {
-        background-color: var(--blue-300);
-    }
-
-    .mat-progress-bar-buffer {
-        background-color: var(--gray-300);
-    }
-}
-
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include angular-material-theme($app-theme);
-@include default-theme($app-theme);
-@include checkbox-theme($app-theme);
-@include table-theme($app-theme);
-@include form-theme($app-theme);
-@include slider-theme($app-theme);
-@include tab-theme($app-theme);
-@include menu-theme($app-theme);
-@include dialog-theme($app-theme);
-@include progress-bar-theme($app-theme);
+@include typography();
+@include colors();
+@include paddings();
+@include margins();
+@include sidenav();
+@include icons();
+@include buttons();
+@include chips();
+@include toolbars();

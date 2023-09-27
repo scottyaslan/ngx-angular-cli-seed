@@ -22,10 +22,4 @@ import { Component } from '@angular/core';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-    sidenavOpen = false;
-
-    closeSidenav() {
-        this.sidenavOpen = false;
-    }
-}
+export class AppComponent {}

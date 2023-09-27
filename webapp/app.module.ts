@@ -15,41 +15,75 @@
  * limitations under the License.
  */
 
+import { environment as ENV, IS_PRODUCTION } from 'webapp/environments/environment';
+import { NgModule, Provider } from '@angular/core';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
-import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatIconModule } from '@angular/material/icon';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatButtonModule } from '@angular/material/button';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { NgModule } from '@angular/core';
-import { PlatformModule } from 'webapp/platform/platform.module';
-import { registerLocaleData } from '@angular/common';
-import localeHu from '@angular/common/locales/hu';
-import localeHuExtra from '@angular/common/locales/extra/hu';
+import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PlatformModule } from 'webapp/platform/platform.module';
+import { KitchenSinkModule } from 'webapp/components/kitchen-sink/kitchen-sink.module';
+import {
+    STUBBED_DATA_INTERCEPTOR_CONFIGURATION,
+    StubDataInterceptorService,
+    REGISTER_STUBBED_ROUTES
+} from 'webapp/platform/services/stub-data-interceptor.service';
+import { registerEndpoints } from 'webapp/testing/stubbed-data-interceptor/endpoints';
 import { AppRoutingModule } from './app.routes.module';
 import { AppComponent } from './app.component';
-import { KitchenSinkModule } from './components/kitchen-sink/kitchen-sink.module';
+import { ErrorInterceptorService } from './services/error-interceptor.service';
 
-registerLocaleData(localeHu, 'hu-HU', localeHuExtra);
+const providers: Provider[] = [
+    {
+        provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
+        useValue: {
+            showDelay: 500,
+            hideDelay: 500
+        }
+    },
+    {
+        provide: STUBBED_DATA_INTERCEPTOR_CONFIGURATION,
+        useValue: ENV.stubbedDataInterceptor
+    },
+    {
+        provide: HTTP_INTERCEPTORS,
+        useClass: ErrorInterceptorService,
+        multi: true
+    },
+];
+
+if (!IS_PRODUCTION && ENV.stubbedDataInterceptor.enabled) {
+    providers.push({
+        provide: REGISTER_STUBBED_ROUTES,
+        useValue: registerEndpoints
+    }, {
+        provide: HTTP_INTERCEPTORS,
+        useClass: StubDataInterceptorService,
+        multi: true
+    });
+}
 
 @NgModule({
     declarations: [
         AppComponent
     ],
     imports: [
-        FlexLayoutModule,
-        MatIconModule,
-        MatSidenavModule,
-        MatButtonModule,
-        MatToolbarModule,
         BrowserModule,
         AppRoutingModule,
-        PlatformModule,
-        KitchenSinkModule,
-        BrowserAnimationsModule
+        ...(!IS_PRODUCTION ? [KitchenSinkModule] : []),
+        BrowserAnimationsModule,
+        PlatformModule
     ],
-    providers: [],
+    providers,
     bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+    constructor() {
+        // modify environment settings while running on the console, e.g.:
+        // > environment  // shows the current settings
+        // > environment.stubbedDataInterceptor.logging = true // enables logging of stubbed calls
+        if (window) {
+            (window as any).environment = ENV;
+        }
+    }
+}

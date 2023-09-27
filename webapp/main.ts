@@ -15,46 +15,23 @@
  * limitations under the License.
  */
 
-import { enableProdMode, TRANSLATIONS, TRANSLATIONS_FORMAT, LOCALE_ID, ApplicationRef } from '@angular/core';
+import { enableProdMode, ApplicationRef } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { enableDebugTools } from '@angular/platform-browser';
+import { environment as ENV } from 'webapp/environments/environment';
 import { AppModule } from './app.module';
-import { environment } from './environments/environment';
 
-if (environment.production) {
+if (ENV.production) {
     enableProdMode();
 }
 
-declare const require;
-const loadlocaleProviders = (locale: string): any[] => {
-    try {
-        /* eslint-disable-next-line import/no-dynamic-require */
-        const translations = require(`raw-loader!./locale/messages.${locale}.xlf`);
-        return [
-            { provide: TRANSLATIONS, useValue: translations },
-            { provide: TRANSLATIONS_FORMAT, useValue: 'xlf' },
-            { provide: LOCALE_ID, useValue: locale }
-        ];
-    } catch (e) {
-        return null;
-    }
-};
-
-const browserLocale = navigator.language.toLowerCase();
-const simplifiedLocale = browserLocale.substr(0, browserLocale.indexOf('-'));
-
-const localeProviders = loadlocaleProviders(browserLocale)
-    || loadlocaleProviders(simplifiedLocale) || [];
-
-platformBrowserDynamic().bootstrapModule(AppModule, {
-    providers: [
-        ...localeProviders
-    ]
-}).then((moduleRef) => {
-    if (!environment.production) {
-        const applicationRef = moduleRef.injector.get(ApplicationRef);
-        const appComponent = applicationRef.components[0];
-        enableDebugTools(appComponent);
-    }
-});
+platformBrowserDynamic()
+    .bootstrapModule(AppModule, {})
+    .then((moduleRef) => {
+        if (!ENV.production) {
+            const applicationRef = moduleRef.injector.get(ApplicationRef);
+            const appComponent = applicationRef.components[0];
+            enableDebugTools(appComponent);
+        }
+    });

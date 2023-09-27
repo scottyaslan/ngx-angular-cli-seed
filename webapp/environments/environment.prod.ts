@@ -15,6 +15,57 @@
  * limitations under the License.
  */
 
+export interface StubbedDataInterceptorConfiguration {
+    apiUrl: string | string[]; // e.g.:`http://localhost:1573`;
+    // enable stubbed single endpoints using an array: enabled = [...]
+    // enabled === true enables all stubbed endpoints
+    // enabled === false disables all stubbed endpoints
+    // (note that changing this while running by window.environment has no effect)
+    enabled: string[] | boolean;
+    logging: boolean;
+    delay: number; // simulates slow network
+    // if true, stubbed interceptor will be available as window.stubbedDataInterceptor used by Cypress e2e tests
+    exposeToWindow: boolean;
+    // Request History tracks all http requests processed by Stubbed Data Interceptor
+    // should be enabled while e2e or unit testing
+    enableRequestHistory: boolean;
+}
+
+export const IS_PRODUCTION = true;
+
+const root = location ? location.origin : '';
+const rootApiPath = '';
+
+const stubbedDataInterceptor: StubbedDataInterceptorConfiguration = {
+    apiUrl: [
+        `${root}${rootApiPath}`
+    ],
+    enabled: false,
+    logging: false,
+    delay: 1000,
+    exposeToWindow: false,
+    enableRequestHistory: false
+};
+
 export const environment = {
-    production: true
+    production: true,
+    development: false,
+    apiUrl: `${root}${rootApiPath}`,
+    apiPath: rootApiPath,
+    inputFieldDebounceTime: 500,
+    features: {
+        // enable/disable features here
+    },
+
+    kitchenSinkPageVisible: false,
+
+    stubbedDataInterceptor,
+    delayToCheckProgress: 1000,
+    delayForSTOMPTopics: 1000,
+    statefulStubbedDataHandlers: false,
+
+    routing: {
+        debug: false,
+        logErrors: true
+    }
 };

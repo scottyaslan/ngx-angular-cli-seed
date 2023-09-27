@@ -15,11 +15,7 @@
     "//-14": "limitations under the License.",
     "extends": "./tsconfig.json",
     "compilerOptions": {
-        "outDir": "./out-tsc/spec",
-        "types": [
-            "jasmine",
-            "node"
-        ]
+        "outDir": "./out-tsc/spec"
     },
     "files": [
         "webapp/test.ts",
@@ -28,5 +24,9 @@
     "include": [
         "webapp/**/*.spec.ts",
         "webapp/**/*.d.ts"
+    ],
+    "exclude": [
+        "webapp/platform/ngx-design-system-seed/**/*.spec.ts",
+        "e2e/cypress/*.cypress.config.ts"
     ]
 }

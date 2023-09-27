@@ -1,0 +1,40 @@
+{
+    "//-01": "Licensed to the Apache Software Foundation (ASF) under one or more",
+    "//-02": "contributor license agreements.  See the NOTICE file distributed with",
+    "//-03": "this work for additional information regarding copyright ownership.",
+    "//-04": "The ASF licenses this file to You under the Apache License, Version 2.0",
+    "//-05": "(the \"License\"); you may not use this file except in compliance with",
+    "//-06": "the License.  You may obtain a copy of the License at",
+    "//-07": "",
+    "//-08": "http://www.apache.org/licenses/LICENSE-2.0",
+    "//-09": "",
+    "//-10": "Unless required by applicable law or agreed to in writing, software",
+    "//-11": "distributed under the License is distributed on an \"AS IS\" BASIS,",
+    "//-12": "WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.",
+    "//-13": "See the License for the specific language governing permissions and",
+    "//-14": "limitations under the License.",
+    "name": "ngx-angular-cli-seed-e2e",
+    "version": "1.0.0",
+    "type": "module",
+    "scripts": {
+        "start": "run-s --continue-on-error results:clean cypress:run:nightly results:merge",
+        "cypress:open:mocked": "cypress open --config-file cypress/mocked.cypress.config.ts",
+        "cypress:run:mocked": "cypress run --config-file cypress/mocked.cypress.config.ts --config video=false",
+        "cypress:run:mocked-video": "cypress run --config-file cypress/mocked.cypress.config.ts",
+        "results:clean": "rimraf ./results",
+        "results:merge": "junit-merge --dir ./results/suites --createDir --out ./results/ngx-angular-cli-seed-e2e-results.xml"
+    },
+    "private": true,
+    "description": "Ngx Angular CLI seed - e2e",
+    "keywords": [
+        "cypress",
+        "e2e"
+    ],
+    "devDependencies": {
+        "cypress": "10.3.1",
+        "junit-merge": "2.0.0",
+        "npm-run-all": "4.1.5",
+        "rimraf": "3.0.2",
+        "typescript": "^3.9.5"
+    }
+}

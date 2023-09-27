@@ -15,19 +15,21 @@
  * limitations under the License.
  */
 
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { fullyConfigureTestingModule } from '../../testing/configureTestingModule';
 import { KitchenSinkComponent } from './kitchen-sink.component';
+import { KitchenSinkModule } from './kitchen-sink.module';
 
 describe('KitchenSinkComponent', () => {
     let component: KitchenSinkComponent;
     let fixture: ComponentFixture<KitchenSinkComponent>;
 
-    beforeEach(async(() => {
-        TestBed.configureTestingModule({
-            declarations: [KitchenSinkComponent]
-        })
-            .compileComponents();
+    beforeEach(waitForAsync(() => {
+        fullyConfigureTestingModule({
+            imports: [
+                KitchenSinkModule
+            ]
+        }).compileComponents();
     }));
 
     beforeEach(() => {

@@ -18,37 +18,32 @@
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
-module.exports = function (config) {
+module.exports = function (config, debug = false) {
     config.set({
         basePath: '',
-        frameworks: ['parallel', 'jasmine', '@angular-devkit/build-angular'],
+        frameworks: ['jasmine', '@angular-devkit/build-angular'],
         plugins: [
             require('karma-jasmine'),
             require('karma-chrome-launcher'),
             require('karma-jasmine-html-reporter'),
-            require('karma-coverage-istanbul-reporter'),
+            require('karma-coverage'),
             require('@angular-devkit/build-angular/plugins/karma'),
-            require('karma-spec-reporter'),
-            require('karma-parallel'),
+            require('karma-spec-reporter')
         ],
-        parallelOptions: {
-            // number of cores to shard spec files to when running tests, default to 1. Can override via CLI option `--parallelOptions.executors=4`
-            executors: 4,
-            shardStrategy: 'round-robin'
-
-            // NOTE: defined reporters (spec, coverage-istanbul) can cause connection failures when running karma-parallel tests from IDE.
-            // If this is the case, override this setting via the CLI option `--parallelOptions.aggregatedReporterTest=null` to disable aggregate reporting.
-            // aggregatedReporterTest: null
-        },
         client: {
             clearContext: false // leave Jasmine Spec Runner output visible in browser
         },
-        coverageIstanbulReporter: {
-            dir: require('path').join(__dirname, './coverage/dfx'),
-            reports: ['html', 'lcovonly', 'text-summary'],
+        coverageReporter: {
+            dir: require('path').join(__dirname, './coverage'),
+            reporters: [
+                // { type: 'html', subdir: '.' }, // uncomment if needed for any tool or manual check
+                { type: 'lcov', subdir: '.' },
+                { type: 'json', subdir: '.', file: 'coverage-final.json' },
+                { type: 'text-summary' }
+            ],
             fixWebpackSourcePaths: true
         },
-        reporters: ['spec', 'kjhtml'],
+        reporters: ['spec', 'kjhtml', 'coverage'],
         specReporter: {
             failFast: false,
             suppressSkipped: true,
@@ -58,8 +53,12 @@ module.exports = function (config) {
         colors: true,
         logLevel: config.LOG_INFO,
         autoWatch: true,
-        browsers: ['ChromeHeadless'],
+        browsers: debug ? ['Chrome'] : ['ChromeHeadless'],
         singleRun: true,
-        restartOnFileChange: true
+        restartOnFileChange: true,
+        files: [
+            { pattern: 'webapp/platform/assets/**/*.svg', watched: false, included: false, served: true },
+        ],
+        proxies: {}
     });
 };

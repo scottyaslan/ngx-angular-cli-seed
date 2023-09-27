@@ -15,71 +15,27 @@
  * limitations under the License.
  */
 
- @import "../platform/assets/css/variables.css";
- @import "../platform/assets/css/typography.css";
+//@import "webapp/platform/ngx-design-system-seed/assets/styles/index.scss";
 
-// body {
-//   background: var(--gray-900);
-//   background-size: 40%;
-// }
-
-#app-container {
-  margin: 0;
-  width: 100%;
-  height: 100%;
+.app-container {
+    margin: 0;
+    width: 100%;
+    height: 100%;
 }
 
-#app-toolbar {
-  min-width: 1045px;
-  background-color: var(--gray-700);
-  position: absolute;
-  z-index: 1000;
+.app-perspectives-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    min-height: 350px;
+    min-width: 1050px;
+    overflow: auto;
 }
 
-#app-toolbar .mat-icon-button {
-  color: var(--gray-500);
-  font-size: 20px;
-  margin: 0;
-}
-
-#app-toolbar .mat-select-value-text,
-#app-toolbar .mat-select-arrow {
-  color: white;
-}
-
-#app-toolbar span,
-#app-toolbar .link {
-  color: var(--gray-500);
-}
-
-#app-perspectives-container {
-  position: absolute;
-  top: 64px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  min-height: 370px;
-  min-width: 1045px;
-  overflow: auto;
-}
-
-#loading-spinner {
-  position: absolute;
-  top: calc(50% - 50px);
-  left: calc(50% - 50px);
-  z-index: 2;
-}
-
-mat-sidenav {
-  width: 40%;
-  min-width: 418px;
-}
-
-.sidenav-content {
-  position: absolute;
-  bottom: 60px;
-  top: 80px;
-  right: 0;
-  left: 0;
-  overflow: auto;
+.toolbar {
+    min-width: 1050px;
+    position: absolute;
+    z-index: 1000;
 }
