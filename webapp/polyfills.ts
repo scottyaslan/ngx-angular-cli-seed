@@ -63,18 +63,3 @@
  * Zone JS is required by default for Angular itself.
  */
 import 'zone.js'; // Included with Angular CLI.
-
-/***************************************************************************************************
- * APPLICATION IMPORTS
- */
-
-// the below declaration resolves an error message coming from the generated api-client lib
-// https://stackoverflow.com/questions/62755093/angular-error-generic-type-modulewithproviderst-requires-1-type-arguments
-declare module '@angular/core' {
-    interface ModuleWithProviders<T = any> {
-        // eslint-disable-next-line no-undef
-        ngModule: Type<T>;
-        // eslint-disable-next-line no-undef
-        providers?: Provider[];
-    }
-}

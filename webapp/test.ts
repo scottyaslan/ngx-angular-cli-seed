@@ -24,8 +24,6 @@ import {
     platformBrowserDynamicTesting
 } from '@angular/platform-browser-dynamic/testing';
 
-declare const require: any;
-
 // First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(
     BrowserDynamicTestingModule,
@@ -34,6 +32,3 @@ getTestBed().initTestEnvironment(
         teardown: { destroyAfterEach: false }
     }
 );
-// Then we find all the tests - excluding platform/ngx-design-system-seed, these tests should run in ngx-design-system-seed repo
-const context = require.context('./', true, /^((?!platform\/ngx-design-system-seed).)*\.spec\.ts$/);
-context.keys().map(context);

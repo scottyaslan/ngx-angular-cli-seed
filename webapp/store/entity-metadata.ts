@@ -14,3 +14,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import { EntityMetadataMap } from '@ngrx/data';
+
+const entityMetadata: EntityMetadataMap = {
+    Entity: {}
+};
+
+// because the plural of "hero" is not "heros"
+const pluralNames = { Entity: 'Entities' };
+
+export const entityConfig = {
+    entityMetadata,
+    pluralNames
+};

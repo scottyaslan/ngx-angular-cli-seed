@@ -30,7 +30,6 @@
                         "styles": [
                             "node_modules/reset-css/sass/_reset.scss",
                             "node_modules/font-awesome/css/font-awesome.min.css",
-                            "webapp/platform/assets/material/theme.scss",
                             "webapp/assets/styles.scss"
                         ],
                         "scripts": [],

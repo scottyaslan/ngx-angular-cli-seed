@@ -14,26 +14,6 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-
-<mat-sidenav-container>
-    <mat-sidenav #sidenav mode="over" position="end" [opened]="sidenavOpen" (closedStart)="closeSidenav()" [autoFocus]="false">
-        <button mat-button color="primary" (click)="closeSidenav()"><mat-icon>close</mat-icon></button>
-        <router-outlet (activate)="sidenavOpen = true" (deactivate)="sidenavOpen = false" name="sidenav"></router-outlet>
-    </mat-sidenav>
-    <div class="kitchen-sink" fxLayout="column" fxLayoutAlign="start center">
-        <mat-toolbar class="toolbar">
-            <div fxFlex="1 1 auto" class="pad-left-xl">
-                <div *ngIf="entity"
-                     data-it="entity-name">
-                    Hello {{entity.name}}!
-                    <button mat-button
-                            data-it="btn-reload-entity"
-                            color="primary"
-                            (click)="reload()">Reload Entity</button>
-                </div>
-            </div>
-            <button mat-button color="primary" (click)="sidenavOpen = true">Open sidenav</button>
-        </mat-toolbar>
-        <h1>Kitchen Sink</h1>
-    </div>
-</mat-sidenav-container>
+<div class="m-3">
+    Kitchen Sink
+</div>

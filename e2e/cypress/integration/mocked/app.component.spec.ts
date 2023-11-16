@@ -20,7 +20,9 @@ describe('App component', () => {
         cy.prePageLoadStubbedExtraResponse('GET', 'entity/123', { id: '456', name: 'Entity 456' });
 
         cy.visit('/');
+        cy.getByDataIt('entity-table').should('exist');
 
+        cy.visit('/sidenav-example/entities/123');
         cy.getByDataIt('entity-name').should('contain', 'Entity 456');
 
         cy.nextRequestStubbedExtraResponse('GET', 'entity/123', { id: '789', name: 'Entity 789' });

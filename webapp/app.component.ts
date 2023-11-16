@@ -16,10 +16,58 @@
  */
 
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { setAppSidenavState, selectAppSidenavIsOpen } from './store/ui-state/app-sidenav-context';
+import { UiState } from './store/app-store.module';
+
+export interface Breadcrumb {
+    label: string;
+    clicked?: () => void;
+}
 
 @Component({
     selector: 'webapp',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent {}
+export class AppComponent {
+    isAppSideNavOpen$: Observable<boolean> = this.store.select(selectAppSidenavIsOpen);
+    pageTitle: Observable<Breadcrumb[]>;
+
+    constructor(
+        private store: Store<UiState>,
+        private activatedRoute: ActivatedRoute,
+    ) {}
+
+    onPageActivate() {
+        this.pageTitle = this.activatedRoute.snapshot.firstChild.data.title;
+    }
+
+    openSidenav() {
+        this.store.dispatch(setAppSidenavState({ isOpen: true }));
+    }
+
+    closeSidenav() {
+        this.store.dispatch(setAppSidenavState({ isOpen: false }));
+    }
+
+    closeIconKeyDown(event: KeyboardEvent) {
+        const { key } = event;
+
+        switch (key) {
+            case ' ':
+            case 'Enter':
+                event.preventDefault();
+                this.closeSidenav();
+                break;
+            default:
+        }
+    }
+
+    click(event: MouseEvent, breadcrumb: Breadcrumb) {
+        event.preventDefault();
+        breadcrumb.clicked();
+    }
+}

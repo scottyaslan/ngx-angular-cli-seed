@@ -1,0 +1,511 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons+Two+Tone';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+
+:root {
+    --white: #fff;
+    --black: #000;
+    --black-10: rgba(0, 0, 0, 0.1);
+    --black-20: rgba(0, 0, 0, 0.2);
+    --black-25: rgba(0, 0, 0, 0.25);
+    --black-35: rgba(0, 0, 0, 0.35);
+    --gray-100: #d6d6d6;
+    --gray-200: #b5b5b5;
+    --gray-300: #949494;
+    --gray-400: #777;
+    --gray-500: #595959;
+    --gray-600: #3d3d3d;
+    --gray-700: #2c2c2c;
+    --red-100: #fec9c9;
+    --red-200: #fd9999;
+    --red-300: #fc5f5f;
+    --red-400: #ed0000;
+    --red-500: #b60000;
+    --red-600: #810000;
+    --orange-100: #ffcda0;
+    --orange-200: #ff9e45;
+    --orange-300: #e27817;
+    --orange-400: #b46012;
+    --orange-500: #88480e;
+    --orange-600: #5d320a;
+    --yellow-100: #f8d41e;
+    --yellow-200: #d2b31a;
+    --yellow-300: #ac9315;
+    --yellow-400: #897511;
+    --yellow-500: #68580d;
+    --yellow-600: #473d09;
+    --green-100: #00f829;
+    --green-200: #00d223;
+    --green-300: #00ac1c;
+    --green-400: #008917;
+    --green-500: #006811;
+    --green-600: #00480c;
+    --blue-100: #cad4ff;
+    --blue-200: #9eb2ff;
+    --blue-300: #708dff;
+    --blue-400: #4267ff;
+    --blue-500: #0537ff;
+    --blue-600: #0025b7;
+    --aqua-100: #9edfff;
+    --aqua-200: #41c0ff;
+    --aqua-300: #009cea;
+    --aqua-400: #007cbb;
+    --aqua-500: #005e8e;
+    --aqua-600: #004162;
+    --purple-100: #e9cafe;
+    --purple-200: #d79efd;
+    --purple-300: #c36efc;
+    --purple-400: #ab34fb;
+    --purple-500: #8300db;
+    --purple-600: #5d009a;
+    --pink-100: #fec3ff;
+    --pink-200: #fd89ff;
+    --pink-300: #fc2dff;
+    --pink-400: #d000d3;
+    --pink-500: #9f00a2;
+    --pink-600: #700072;
+}
+
+$appFontPath: "../../../../node_modules/roboto-fontface/fonts" !default;
+$appFontPath: "../../../node_modules/roboto-fontface/fonts";
+
+@font-face {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 300;
+    src: local("Roboto Light"), local("Roboto-Light"),
+    url("#{$appFontPath}/roboto/Roboto-Light.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: Roboto;
+    font-style: italic;
+    font-weight: 300;
+    src: local("Roboto LightItalic"), local("Roboto-LightItalic"),
+    url("#{$appFontPath}/roboto/Roboto-LightItalic.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    src: local("Roboto Regular"), local("Roboto-Regular"),
+    url("#{$appFontPath}/roboto/Roboto-Regular.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    src: local("Roboto Medium"), local("Roboto-Medium"),
+    url("#{$appFontPath}/roboto/Roboto-Medium.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    src: local("Roboto Bold"), local("Roboto-Bold"),
+    url("#{$appFontPath}/roboto/Roboto-Bold.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: Roboto;
+    font-style: italic;
+    font-weight: normal;
+    src: local("Roboto Italic"), local("Roboto-Italic"),
+    url("#{$appFontPath}/roboto/Roboto-RegularItalic.woff2") format("woff2");
+}
+
+@font-face {
+    font-family: "Roboto Slab";
+    font-style: normal;
+    font-weight: normal;
+    src: local("RobotoSlab Regular"), local("RobotoSlab-Regular"),
+    url("#{$appFontPath}/roboto-slab/Roboto-Slab-Regular.woff2")
+    format("woff2");
+}
+
+@font-face {
+    font-family: "Roboto Slab";
+    font-style: normal;
+    font-weight: bold;
+    src: local("RobotoSlab Bold"), local("RobotoSlab-Bold"),
+    url("#{$appFontPath}/roboto-slab/Roboto-Slab-Bold.woff2")
+    format("woff2");
+}
+
+.app-root {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    min-width: 1366px;
+    min-height: 768px;
+}
+
+.app-wrapper {
+    height: 100%;
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.app-body {
+    flex: auto;
+    overflow: auto;
+    background-color: var(--gray-50);
+}
+
+@mixin typography() {
+    html {
+        width: 100%;
+        height: 100%;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+        font-family: Roboto, sans-serif;
+        font-size: 14px;
+        width: 100%;
+        height: 100%;
+    }
+
+    .italic {
+        font-style: italic;
+    }
+
+    .bold {
+        font-weight: 600;
+    }
+
+    .white-space-pre {
+        white-space: pre;
+    }
+
+    .white-space-pre-wrap {
+        white-space: pre-wrap;
+    }
+
+    a,
+    .link {
+        color: var(--blue-600);
+        cursor: pointer;
+        text-decoration: none;
+
+        &:hover {
+            color: var(--blue-700);
+            text-decoration: underline;
+        }
+
+        &:focus:not(.focus-visible) {
+            outline: 0;
+        }
+
+        &.focus-visible {
+            color: var(--blue-700);
+            text-decoration: underline;
+        }
+
+        > .mat-icon {
+            height: 16px;
+            width: 16px;
+            vertical-align: text-bottom;
+        }
+    }
+
+    .link-disabled {
+        color: var(--gray-400);
+        cursor: not-allowed;
+    }
+
+    .link-color {
+        color: var(--blue-600);
+        fill: var(--blue-600);
+    }
+}
+
+@mixin cursor() {
+    .cursor-disabled {
+        cursor: not-allowed;
+    }
+}
+
+@mixin layout-overflow() {
+    .ellipsis {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+    }
+
+    /* max 1 line text with ellipsis - works in Chrome and Firefox */
+    .multi-line-ellipsis {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        overflow: hidden;
+    }
+
+    .overflow-wrap-break-word {
+        overflow-wrap: break-word;
+    }
+}
+
+@mixin animation() {
+    .spin {
+        animation: spin 4s linear infinite;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+}
+
+@mixin colors() {
+    .gray-100 {
+        color: var(--gray-100);
+    }
+
+    .gray-200 {
+        color: var(--gray-200);
+    }
+
+    .gray-300 {
+        color: var(--gray-300);
+    }
+
+    .gray-400 {
+        color: var(--gray-400);
+    }
+
+    .gray-500 {
+        color: var(--gray-500);
+    }
+
+    .gray-600 {
+        color: var(--gray-600);
+    }
+
+    .blue-100 {
+        color: var(--blue-100);
+    }
+
+    .blue-200 {
+        color: var(--blue-200);
+    }
+
+    .blue-300 {
+        color: var(--blue-300);
+    }
+
+    .blue-400 {
+        color: var(--blue-400);
+    }
+
+    .blue-500 {
+        color: var(--blue-500);
+    }
+
+    .blue-600 {
+        color: var(--blue-600);
+    }
+
+    .green-100 {
+        color: var(--green-100);
+    }
+
+    .green-200 {
+        color: var(--green-200);
+    }
+
+    .green-300 {
+        color: var(--green-300);
+    }
+
+    .green-400 {
+        color: var(--green-400);
+    }
+
+    .green-500 {
+        color: var(--green-500);
+    }
+
+    .green-600 {
+        color: var(--green-600);
+    }
+
+    .orange-100 {
+        color: var(--orange-100);
+    }
+
+    .orange-200 {
+        color: var(--orange-200);
+    }
+
+    .orange-300 {
+        color: var(--orange-300);
+    }
+
+    .orange-400 {
+        color: var(--orange-400);
+    }
+
+    .orange-500 {
+        color: var(--orange-500);
+    }
+
+    .orange-600 {
+        color: var(--orange-600);
+    }
+
+    .red-100 {
+        color: var(--red-100);
+    }
+
+    .red-200 {
+        color: var(--red-200);
+    }
+
+    .red-300 {
+        color: var(--red-300);
+    }
+
+    .red-400 {
+        color: var(--red-400);
+    }
+
+    .red-500 {
+        color: var(--red-500);
+    }
+
+    .red-600 {
+        color: var(--red-600);
+    }
+
+    .purple-100 {
+        color: var(--purple-100);
+    }
+
+    .purple-200 {
+        color: var(--purple-200);
+    }
+
+    .purple-300 {
+        color: var(--purple-300);
+    }
+
+    .purple-400 {
+        color: var(--purple-400);
+    }
+
+    .purple-500 {
+        color: var(--purple-500);
+    }
+
+    .purple-600 {
+        color: var(--purple-600);
+    }
+
+    .yellow-100 {
+        color: var(--yellow-100);
+    }
+
+    .yellow-200 {
+        color: var(--yellow-200);
+    }
+
+    .yellow-300 {
+        color: var(--yellow-300);
+    }
+
+    .yellow-400 {
+        color: var(--yellow-400);
+    }
+
+    .yellow-500 {
+        color: var(--yellow-500);
+    }
+
+    .yellow-600 {
+        color: var(--yellow-600);
+    }
+
+    .aqua-100 {
+        color: var(--aqua-100);
+    }
+
+    .aqua-200 {
+        color: var(--aqua-200);
+    }
+
+    .aqua-300 {
+        color: var(--aqua-300);
+    }
+
+    .aqua-400 {
+        color: var(--aqua-400);
+    }
+
+    .aqua-500 {
+        color: var(--aqua-500);
+    }
+
+    .aqua-600 {
+        color: var(--aqua-600);
+    }
+
+    .pink-100 {
+        color: var(--pink-100);
+    }
+
+    .pink-200 {
+        color: var(--pink-200);
+    }
+
+    .pink-300 {
+        color: var(--pink-300);
+    }
+
+    .pink-400 {
+        color: var(--pink-400);
+    }
+
+    .pink-500 {
+        color: var(--pink-500);
+    }
+
+    .pink-600 {
+        color: var(--pink-600);
+    }
+}
+
+@include colors();
+@include typography();
+@include cursor();
+@include layout-overflow();
+@include animation();

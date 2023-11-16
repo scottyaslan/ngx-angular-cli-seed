@@ -17,12 +17,20 @@
 
 export interface Entity {
     id: string,
-    name: string
+    name?: string
 }
 
 export const entities: Entity[] = [
     {
         id: '123',
         name: 'Entity 123'
+    },
+    {
+        id: '456',
+        name: 'Entity 456'
+    },
+    {
+        id: '789',
+        name: 'Entity 789'
     }
 ];

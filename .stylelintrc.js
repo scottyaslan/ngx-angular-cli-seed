@@ -16,7 +16,7 @@
  */
 
 module.exports = {
-    "extends": "stylelint-config-standard",
+    "extends": "stylelint-config-standard-scss",
     "rules": {
         "indentation": null,
         "at-rule-no-unknown": [true, {
@@ -28,10 +28,14 @@ module.exports = {
         }],
         "font-family-no-missing-generic-family-keyword": null,
         "no-empty-source": null,
-
         "selector-pseudo-element-no-unknown": [true, {
             "ignorePseudoElements": ["ng-deep"]
-        }]
+        }],
+        "scss/at-extend-no-missing-placeholder": null,
+        "scss/dollar-variable-pattern": null,
+        "scss/no-global-function-names": null,
+        "color-function-notation": "legacy",
+        "alpha-value-notation": "number"
     },
     "ignoreFiles": [
         "webapp/platform/assets/**/*.scss",

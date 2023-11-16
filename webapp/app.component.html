@@ -15,8 +15,50 @@
   ~ limitations under the License.
   -->
 
-<div class="app-container mat-app-background">
-    <div class="app-perspectives-container">
-        <router-outlet></router-outlet>
+<mat-sidenav-container (backdropClick)="closeSidenav()">
+    <div class="app-root">
+        <div class="app-wrapper">
+            <header class="header pl-3 pr-3"
+                    data-qa="page-title">
+                <h1 class="breadcrumb"
+                    data-qa="breadcrumb">
+                    {{pageTitle}}
+                </h1>
+                <div class="optional-content">
+                    <button mat-button
+                            color="primary"
+                            (click)="openSidenav()">
+                        Open App Sidenav
+                    </button>
+                </div>
+            </header>
+            <main class="app-body">
+                <router-outlet (activate)="onPageActivate()"></router-outlet>
+            </main>
+        </div>
     </div>
-</div>
+    <mat-sidenav [disableClose]="true"
+                 mode="over"
+                 position="start"
+                 [opened]="isAppSideNavOpen$ | async"
+                 [autoFocus]="true"
+                 role="dialog"
+                 aria-labelledby="details-title">
+        <div class="sidenav-container pt-5 pl-3 pr-3 pb-5">
+            <div class="sidenav-header">
+                <button mat-button
+                        color="primary"
+                        type="button"
+                        (click)="closeSidenav()"
+                        (keydown)="closeIconKeyDown($event)">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </div>
+            <router-outlet (activate)="openSidenav()"
+                           (deactivate)="closeSidenav()"
+                           name="app-sidenav">
+            </router-outlet>
+        </div>
+    </mat-sidenav>
+</mat-sidenav-container>
+

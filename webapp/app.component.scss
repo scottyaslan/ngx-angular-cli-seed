@@ -14,3 +14,77 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+:host {
+    display: contents;
+
+    .header {
+        height: 56px;
+        background: var(--gray-200);
+        z-index: 10;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 100%;
+
+        .breadcrumb {
+            flex-shrink: 1;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            font-family: Roboto;
+            font-size: 20px;
+            font-weight: 300;
+            font-stretch: normal;
+            font-style: normal;
+            line-height: 1.4;
+            letter-spacing: normal;
+            color: var(--gray-700);
+            min-width: 0;
+
+            .inactive {
+                flex-shrink: 5;
+                display: flex;
+                align-items: center;
+                min-width: 70px;
+
+                .separator {
+                    color: var(--gray-300);
+                    font-size: 28px;
+                }
+            }
+
+            .title {
+                flex-shrink: 1;
+                color: var(--gray-900);
+            }
+
+            a {
+                color: inherit;
+                text-decoration: none;
+
+                &:hover {
+                    color: var(--gray-800);
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        .optional-content:not(:empty) {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            margin-left: calc(2 * 1.5rem);
+        }
+    }
+
+    .sidenav-container {
+        position: relative;
+        height: calc(100% - 4rem);
+        color: var(--gray-900);
+
+        .sidenav-header {
+            min-height: 30px;
+        }
+    }
+}

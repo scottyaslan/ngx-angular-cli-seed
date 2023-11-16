@@ -15,36 +15,10 @@
  * limitations under the License.
  */
 
-import { environment as ENV } from 'webapp/environments/environment';
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component } from '@angular/core';
 
 @Component({
     templateUrl: './kitchen-sink.component.html',
     styleUrls: ['./kitchen-sink.component.scss']
 })
-export class KitchenSinkComponent implements OnInit {
-    sidenavOpen = false;
-    protected apiUrl: string;
-    protected entity: any;
-
-    constructor(protected httpClient: HttpClient) {
-        this.apiUrl = ENV.apiUrl;
-    }
-
-    ngOnInit() {
-        this.httpClient.get(`${this.apiUrl}/entity/123`).subscribe((data) => {
-            this.entity = data;
-        });
-    }
-
-    reload() {
-        this.httpClient.get(`${this.apiUrl}/entity/123`).subscribe((data) => {
-            this.entity = data;
-        });
-    }
-
-    closeSidenav() {
-        this.sidenavOpen = false;
-    }
-}
+export class KitchenSinkComponent {}

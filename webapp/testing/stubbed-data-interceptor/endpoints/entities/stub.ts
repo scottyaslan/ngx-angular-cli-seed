@@ -22,6 +22,8 @@ import { entities } from './data';
 // import { delay } from 'rxjs/operators';
 
 export default (stubbedDataRouter: StubbedDataRouter) => {
+    stubbedDataRouter.registerRoute('GET', 'entities', () => entities);
+
     stubbedDataRouter.registerEntityRoute('entity/:id', entities);
 
     // Or you can use a custom handler

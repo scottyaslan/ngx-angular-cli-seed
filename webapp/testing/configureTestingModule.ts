@@ -20,7 +20,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { Router, Routes } from '@angular/router';
+import { Routes } from '@angular/router';
 import { environment as ENV } from 'webapp/environments/environment';
 import { registerEndpoints } from 'webapp/testing/stubbed-data-interceptor/endpoints';
 import { ErrorInterceptorService } from 'webapp/services/error-interceptor.service';
@@ -35,7 +35,7 @@ import {
     mapToStubbedEndpoints,
     MockComponent
 } from 'webapp/platform/testing/configureTestingModule';
-import { routes, init } from '../app.routes.module';
+import { routes } from '../app.routes.module';
 
 // configures Testbed WITH routing and stubbed data interceptor
 export function fullyConfigureTestingModule(
@@ -76,8 +76,6 @@ export function fullyConfigureTestingModule(
             HttpClientTestingModule
         ]
     });
-
-    init(TestBed.inject(Router));
 
     // issue: https://github.com/angular/angular/issues/25837
     fixRouterInTests();

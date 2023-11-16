@@ -21,6 +21,10 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { MAT_TOOLTIP_DEFAULT_OPTIONS } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterOutlet } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 import { PlatformModule } from 'webapp/platform/platform.module';
 import { KitchenSinkModule } from 'webapp/components/kitchen-sink/kitchen-sink.module';
 import {
@@ -32,6 +36,7 @@ import { registerEndpoints } from 'webapp/testing/stubbed-data-interceptor/endpo
 import { AppRoutingModule } from './app.routes.module';
 import { AppComponent } from './app.component';
 import { ErrorInterceptorService } from './services/error-interceptor.service';
+import { SidenavExampleModule } from './components/sidenav-example/sidenav-example.module';
 
 const providers: Provider[] = [
     {
@@ -72,7 +77,12 @@ if (!IS_PRODUCTION && ENV.stubbedDataInterceptor.enabled) {
         AppRoutingModule,
         ...(!IS_PRODUCTION ? [KitchenSinkModule] : []),
         BrowserAnimationsModule,
-        PlatformModule
+        PlatformModule,
+        MatIconModule,
+        MatSidenavModule,
+        RouterOutlet,
+        SidenavExampleModule,
+        MatButtonModule
     ],
     providers,
     bootstrap: [AppComponent]

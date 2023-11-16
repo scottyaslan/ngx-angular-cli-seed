@@ -20,7 +20,7 @@ import { fullyConfigureTestingModule } from '../../testing/configureTestingModul
 import { KitchenSinkComponent } from './kitchen-sink.component';
 import { KitchenSinkModule } from './kitchen-sink.module';
 
-describe('KitchenSinkComponent', () => {
+describe('Kitchen Sink Component', () => {
     let component: KitchenSinkComponent;
     let fixture: ComponentFixture<KitchenSinkComponent>;
 
