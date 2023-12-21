@@ -15,17 +15,19 @@
  * limitations under the License.
  */
 
-.sidenav-container {
-    position: relative;
-    height: calc(100% - 4rem);
-    color: var(--gray-900);
+import { signal, WritableSignal } from '@angular/core';
 
-    .sidenav-header {
-        min-height: 30px;
+export class SelectionBaseService<T> {
+    protected selection$: WritableSignal<T>;
+    constructor(protected nullSelection: T) {
+        this.selection$ = signal(nullSelection);
     }
-}
 
-.selected {
-    border: greenyellow 1px solid;
-    background-color: var(--blue-500);
+    clear(): void {
+        this.selection$.set(this.nullSelection);
+    }
+
+    get(): WritableSignal<T> {
+        return this.selection$;
+    }
 }

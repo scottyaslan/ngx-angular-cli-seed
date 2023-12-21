@@ -15,17 +15,24 @@
  * limitations under the License.
  */
 
-.sidenav-container {
-    position: relative;
-    height: calc(100% - 4rem);
-    color: var(--gray-900);
+import { Injectable } from '@angular/core';
+import { SelectionBaseService } from './selection-base.service';
 
-    .sidenav-header {
-        min-height: 30px;
-    }
+export interface SingleSelection {
+    entity: any;
 }
 
-.selected {
-    border: greenyellow 1px solid;
-    background-color: var(--blue-500);
+export const emptySelection: SingleSelection = {
+    entity: null,
+};
+
+@Injectable({ providedIn: 'root' })
+export class SingleSelectionService extends SelectionBaseService<SingleSelection> {
+    constructor() {
+        super(emptySelection);
+    }
+
+    select(selection: SingleSelection) {
+        this.selection$.set(selection);
+    }
 }

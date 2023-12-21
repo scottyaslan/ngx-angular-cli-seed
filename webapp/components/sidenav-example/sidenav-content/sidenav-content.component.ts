@@ -16,41 +16,62 @@
  */
 
 import { environment as ENV } from 'webapp/environments/environment';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { take } from 'rxjs/operators';
-import { EntityService } from '../../../store/resources/entities/entity.service';
+import { Store } from '@ngrx/store';
+import { Subject } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
+import { EntityService } from 'webapp/store/resources/entities/entity.service';
+import { UiState } from 'webapp/store/app-store.module';
+import { SingleSelectionService } from 'webapp/services/single-selection.service';
 
 @Component({
     templateUrl: './sidenav-content.component.html',
     styleUrls: ['./sidenav-content.component.scss']
 })
-export class SidenavContentComponent implements OnInit {
+export class SidenavContentComponent implements OnInit, OnDestroy {
     protected apiUrl: string;
-    protected entity: any;
+    protected store: Store<UiState> = inject(Store<UiState>);
+    protected selectionService: SingleSelectionService = inject(SingleSelectionService);
     protected loading$ = this.entityService.loading$;
+    selection = this.selectionService.get();
+    private componentDestroyed$ = new Subject<void>();
 
     constructor(
-        private activatedRoute: ActivatedRoute,
+        protected activatedRoute: ActivatedRoute,
         protected entityService: EntityService
     ) {
         this.apiUrl = ENV.apiUrl;
     }
 
     ngOnInit() {
-        this.reload();
+        this.activatedRoute.params.pipe(
+            takeUntil(this.componentDestroyed$)
+        ).subscribe((params) => {
+            this.reload(params.entityId);
+        });
     }
 
-    reload() {
-        this.entityService.getByKey(this.activatedRoute.snapshot.params.entityId)
+    ngOnDestroy() {
+        this.selectionService.clear();
+        this.componentDestroyed$.next();
+    }
+
+    reload(id: string) {
+        this.entityService.getByKey(id)
             .pipe(
                 take(1)
             )
             .subscribe({
                 next: (entity) => {
-                    this.entity = entity;
+                    this.selectionService.select({
+                        entity
+                    });
                 },
-                error: (error) => JSON.parse(JSON.stringify(error))
+                error: (error) => {
+                    this.selectionService.clear();
+                    JSON.parse(JSON.stringify(error));
+                }
             });
     }
 }

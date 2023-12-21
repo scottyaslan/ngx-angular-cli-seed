@@ -16,30 +16,33 @@
  */
 
 import { environment as ENV } from 'webapp/environments/environment';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { UiState } from 'webapp/store/app-store.module';
 import { AppRoutingService } from 'webapp/app.routing.service';
-import { EntityService } from '../../store/resources/entities/entity.service';
-import { Entity } from '../../testing/stubbed-data-interceptor/endpoints/entities/data';
-import { selectSidenavIsOpen, setSidenavState } from '../../store/ui-state/sidenav-context';
+import { EntityService } from 'webapp/store/resources/entities/entity.service';
+import { Entity } from 'webapp/testing/stubbed-data-interceptor/endpoints/entities/data';
+import { selectSidenavIsOpen, setSidenavState } from 'webapp/store/ui-state/sidenav-context';
+import { SingleSelectionService } from 'webapp/services/single-selection.service';
 
 @Component({
     templateUrl: './sidenav-example.component.html',
     styleUrls: ['./sidenav-example.component.scss']
 })
 export class SidenavExampleComponent implements OnInit {
-    isSideNavOpen$: Observable<boolean> = this.store.select(selectSidenavIsOpen);
+    protected store: Store<UiState> = inject(Store<UiState>);
+    protected selectionService: SingleSelectionService = inject(SingleSelectionService);
+    selection = this.selectionService.get();
     protected apiUrl: string;
     protected loading$ = this.entityService.loading$;
     protected entities: any = [];
     displayedColumns: string[] = ['action', 'id', 'name'];
+    isSideNavOpen$: Observable<boolean> = this.store.select(selectSidenavIsOpen);
 
     constructor(
         private appRoutingService: AppRoutingService,
-        private store: Store<UiState>,
         protected entityService: EntityService
     ) {
         this.apiUrl = ENV.apiUrl;

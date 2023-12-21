@@ -15,17 +15,26 @@
   ~ limitations under the License.
   -->
 
-<ng-container *ngIf="entity">
+<ng-container *ngIf="selection().entity">
+    <button mat-icon-button
+            data-it="btn-reload-entity"
+            color="primary"
+            [ngClass]="(loading$ | async) ? 'spin' : ''"
+            (click)="reload(this.activatedRoute.snapshot.params.entityId)">
+        <mat-icon>refresh</mat-icon>
+    </button>
     <mat-card>
-        <button mat-icon-button
-                data-it="btn-reload-entity"
-                color="primary"
-                [ngClass]="(loading$ | async) ? 'spin' : ''"
-                (click)="reload()">
-            <mat-icon>refresh</mat-icon>
-        </button>
         <mat-card-content data-it="entity-name">
-            {{entity.name}}
+            {{selection().entity.name}}
         </mat-card-content>
     </mat-card>
+    <nav mat-tab-nav-bar
+         [tabPanel]="tabPanel"
+         class="pt-3">
+        <a mat-tab-link> Tab1 </a>
+        <a mat-tab-link> Tab2 </a>
+    </nav>
+    <mat-tab-nav-panel #tabPanel>
+        <router-outlet></router-outlet>
+    </mat-tab-nav-panel>
 </ng-container>
