@@ -16,7 +16,7 @@
  */
 
 import { environment as ENV } from 'webapp/environments/environment';
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Subject } from 'rxjs';
@@ -24,6 +24,7 @@ import { take, takeUntil } from 'rxjs/operators';
 import { EntityService } from 'webapp/store/resources/entities/entity.service';
 import { UiState } from 'webapp/store/app-store.module';
 import { SingleSelectionService } from 'webapp/services/single-selection.service';
+import { MoreToggleService } from 'webapp/services/more-toggle.service';
 
 @Component({
     templateUrl: './sidenav-content.component.html',
@@ -34,14 +35,17 @@ export class SidenavContentComponent implements OnInit, OnDestroy {
     protected store: Store<UiState> = inject(Store<UiState>);
     protected selectionService: SingleSelectionService = inject(SingleSelectionService);
     protected loading$ = this.entityService.loading$;
+    protected moreToggle$ = signal(true);
     selection = this.selectionService.get();
     private componentDestroyed$ = new Subject<void>();
 
     constructor(
         protected activatedRoute: ActivatedRoute,
-        protected entityService: EntityService
+        protected entityService: EntityService,
+        protected moreToggleService: MoreToggleService
     ) {
         this.apiUrl = ENV.apiUrl;
+        moreToggleService.init(this.moreToggle$);
     }
 
     ngOnInit() {
@@ -73,5 +77,10 @@ export class SidenavContentComponent implements OnInit, OnDestroy {
                     JSON.parse(JSON.stringify(error));
                 }
             });
+    }
+
+    toggle(event: Event) {
+        event.preventDefault();
+        this.moreToggle$.set(!this.moreToggle$());
     }
 }

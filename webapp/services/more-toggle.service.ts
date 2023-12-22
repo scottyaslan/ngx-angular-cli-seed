@@ -15,24 +15,24 @@
  * limitations under the License.
  */
 
-import { Injectable } from '@angular/core';
-import { SelectionBaseService } from '../platform/services/selection-base.service';
-
-export interface SingleSelection {
-    entity: any;
-}
-
-export const emptySelection: SingleSelection = {
-    entity: null,
-};
+import { Injectable, effect } from '@angular/core';
+import { StorageBaseService } from 'webapp/platform/services/storage-base.service';
 
 @Injectable({ providedIn: 'root' })
-export class SingleSelectionService extends SelectionBaseService<SingleSelection> {
+export class MoreToggleService extends StorageBaseService<boolean> {
+    protected readonly KEY = 'moreToggleExpandedState';
+    protected readonly VERSION = 'v1';
+    protected readonly STORAGE = localStorage;
+
     constructor() {
-        super(emptySelection);
+        super();
     }
 
-    select(selection: SingleSelection) {
-        this.selection$.set(selection);
+    init(moreToggle$) {
+        moreToggle$.set(this.getEntry());
+
+        effect(() => {
+            this.setEntry(moreToggle$());
+        });
     }
 }

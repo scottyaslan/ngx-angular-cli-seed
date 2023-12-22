@@ -25,7 +25,26 @@
     </button>
     <mat-card>
         <mat-card-content data-it="entity-name">
-            {{selection().entity.name}}
+            <mat-card-title>{{selection().entity.name}}</mat-card-title>
+            <section class="pt-3">
+                <div class="pt-3">
+                    <a (click)="toggle($event)">
+                        More
+                        <mat-icon *ngIf="moreToggle$()"
+                                  class="size-16">
+                            expand_less
+                        </mat-icon>
+                        <mat-icon *ngIf="!moreToggle$()"
+                                  class="size-16">
+                            expand_more
+                        </mat-icon>
+                    </a>
+                </div>
+                <div class="pt-3"
+                     *ngIf="moreToggle$()">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </div>
+            </section>
         </mat-card-content>
     </mat-card>
     <nav mat-tab-nav-bar

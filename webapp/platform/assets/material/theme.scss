@@ -257,14 +257,11 @@ $theme: mat.define-light-theme((
 
 @mixin icons() {
     .material-icons {
-        font-size: 24px;
         font-family: 'Material Icons Two Tone', 'Material Icons';
-        .mat-badge-content {
-            font-family: 'Roboto';
-        }
     }
 
     mat-icon.size-48 {
+        font-size: 48px;
         width: 48px;
         height: 48px;
         vertical-align: text-bottom;
@@ -272,6 +269,7 @@ $theme: mat.define-light-theme((
     }
 
     mat-icon.size-42 {
+        font-size: 42px;
         width: 42px;
         height: 42px;
         vertical-align: text-bottom;
@@ -279,6 +277,7 @@ $theme: mat.define-light-theme((
     }
 
     mat-icon.size-40 {
+        font-size: 40px;
         width: 40px;
         height: 40px;
         vertical-align: text-bottom;
@@ -286,6 +285,7 @@ $theme: mat.define-light-theme((
     }
 
     mat-icon.size-36 {
+        font-size: 36px;
         width: 36px;
         height: 36px;
         vertical-align: text-bottom;
@@ -293,6 +293,7 @@ $theme: mat.define-light-theme((
     }
 
     mat-icon.size-28 {
+        font-size: 28px;
         width: 28px;
         height: 28px;
         vertical-align: text-bottom;
@@ -300,6 +301,7 @@ $theme: mat.define-light-theme((
     }
 
     mat-icon.size-24 {
+        font-size: 24px;
         width: 24px;
         height: 24px;
         vertical-align: text-bottom;
@@ -307,6 +309,7 @@ $theme: mat.define-light-theme((
     }
 
     mat-icon.size-20 {
+        font-size: 20px;
         width: 20px;
         height: 20px;
         vertical-align: text-bottom;
@@ -314,6 +317,7 @@ $theme: mat.define-light-theme((
     }
 
     mat-icon.size-18 {
+        font-size: 18px;
         width: 18px;
         height: 18px;
         vertical-align: text-bottom;
@@ -321,6 +325,7 @@ $theme: mat.define-light-theme((
     }
 
     mat-icon.size-16 {
+        font-size: 16px;
         width: 16px;
         height: 16px;
         vertical-align: text-bottom;
@@ -328,6 +333,7 @@ $theme: mat.define-light-theme((
     }
 
     mat-icon.size-14 {
+        font-size: 14px;
         width: 14px;
         height: 14px;
         vertical-align: text-bottom;
@@ -335,18 +341,11 @@ $theme: mat.define-light-theme((
     }
 
     mat-icon.size-12 {
+        font-size: 12px;
         width: 12px;
         height: 12px;
         vertical-align: text-bottom;
         display: inline-block;
-    }
-
-    mat-icon.height-24 {
-        height: 24px;
-    }
-
-    mat-icon.height-20 {
-        height: 20px;
     }
 }
 
